@@ -6,7 +6,6 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.ui.graphics.Color
 import com.compose.project.remindme.ui.Dimensions
 import com.compose.project.remindme.ui.LocalSpacing
 
@@ -14,12 +13,12 @@ private val DarkColorScheme = darkColorScheme(
     primary = BrightGreen,
     primaryContainer = DarkGreen,
     secondary = Orange,
-    background = MediumGray,
+    background = White,
     onBackground = TextWhite,
     surface = LightGray,
     onSurface = TextWhite,
-    onPrimary = Color.White,
-    onSecondary = Color.White,
+    onPrimary = White,
+    onSecondary = White,
     error = ErrorRed
 )
 
@@ -27,12 +26,12 @@ private val LightColorScheme = lightColorScheme(
     primary = BrightGreen,
     primaryContainer = DarkGreen,
     secondary = Orange,
-    background = Color.White,
+    background = White,
     onBackground = DarkGray,
-    surface = Color.White,
+    surface = White,
     onSurface = DarkGray,
-    onPrimary = Color.White,
-    onSecondary = Color.White,
+    onPrimary = White,
+    onSecondary = White,
     error = ErrorRed
 )
 
