@@ -60,6 +60,7 @@ dependencies {
     val navigationVersion = "2.7.5"
     val hiltVersion = "2.48"
     val roomVersion = "2.6.1"
+    val materialVersion = "1.5.0-alpha04"
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
@@ -98,4 +99,7 @@ dependencies {
     implementation("androidx.room:room-runtime:$roomVersion")
     kapt("androidx.room:room-compiler:$roomVersion")
     implementation("androidx.room:room-ktx:$roomVersion")
+
+    //material
+    implementation("com.google.android.material:material:$materialVersion")
 }
