@@ -24,18 +24,21 @@ object DispatchersModule {
     @Provides
     @Singleton
     @Named(NamedDispatchers.DISPATCHER_IO)
-    fun provideIoDispatcher(appDispatchers: AppDispatchers): CoroutineDispatcher =
-        appDispatchers.ioDispatcher
+    fun provideIoDispatcher(appDispatchers: AppDispatchers): CoroutineDispatcher {
+        return appDispatchers.ioDispatcher
+    }
 
     @Provides
     @Singleton
     @Named(NamedDispatchers.DISPATCHER_UI)
-    fun provideDispatcherUI(appDispatchers: AppDispatchers): CoroutineDispatcher =
-        appDispatchers.mainDispatcher
+    fun provideDispatcherUI(appDispatchers: AppDispatchers): CoroutineDispatcher {
+        return appDispatchers.mainDispatcher
+    }
 
     @Provides
     @Singleton
     @Named(NamedDispatchers.DISPATCHER_DEFAULT)
-    fun provideDispatcherDefault(appDispatchers: AppDispatchers): CoroutineDispatcher =
-        appDispatchers.defaultDispatcher
+    fun provideDispatcherDefault(appDispatchers: AppDispatchers): CoroutineDispatcher {
+        return appDispatchers.defaultDispatcher
+    }
 }
