@@ -1,5 +1,6 @@
 package com.compose.project.remindme.core.dispatcher.di
 
+import com.compose.project.remindme.core.constant.NamedDispatchers
 import com.compose.project.remindme.core.dispatcher.AppDispatcherImpl
 import com.compose.project.remindme.core.dispatcher.AppDispatchers
 import dagger.Module
@@ -16,27 +17,25 @@ object DispatchersModule {
 
     @Provides
     @Singleton
-    fun provideAppDispatchers(): AppDispatchers = AppDispatcherImpl
+    fun provideAppDispatchers(): AppDispatchers {
+        return AppDispatcherImpl
+    }
 
     @Provides
     @Singleton
-    @Named(DISPATCHER_IO)
+    @Named(NamedDispatchers.DISPATCHER_IO)
     fun provideIoDispatcher(appDispatchers: AppDispatchers): CoroutineDispatcher =
         appDispatchers.ioDispatcher
 
     @Provides
     @Singleton
-    @Named(DISPATCHER_UI)
+    @Named(NamedDispatchers.DISPATCHER_UI)
     fun provideDispatcherUI(appDispatchers: AppDispatchers): CoroutineDispatcher =
         appDispatchers.mainDispatcher
 
     @Provides
     @Singleton
-    @Named(DISPATCHER_DEFAULT)
+    @Named(NamedDispatchers.DISPATCHER_DEFAULT)
     fun provideDispatcherDefault(appDispatchers: AppDispatchers): CoroutineDispatcher =
         appDispatchers.defaultDispatcher
-
-    const val DISPATCHER_IO = "DISPATCHER_IO"
-    const val DISPATCHER_UI = "DISPATCHER_UI"
-    const val DISPATCHER_DEFAULT = "DISPATCHER_DEFAULT"
 }
