@@ -10,6 +10,8 @@ data class NoteEntity(
     val id: Int = 0,
     val title: String,
     val description: String,
-    val createdTimeInMillis: Long,
+    val year: Int,
+    val month: Int,
+    val dayOfMonth: Int,
     val isCompleted: Boolean = false
 )

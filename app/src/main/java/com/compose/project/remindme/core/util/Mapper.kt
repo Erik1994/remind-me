@@ -1,4 +1,4 @@
-package com.compose.project.remindme.data.mapper
+package com.compose.project.remindme.core.util
 
 fun interface Mapper<in SOURCE, out RESULT> {
     fun map(s: SOURCE): RESULT
