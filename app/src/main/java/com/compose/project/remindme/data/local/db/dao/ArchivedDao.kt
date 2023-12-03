@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.Flow
 interface ArchivedDao {
 
     @Query("SELECT * FROM ${LocalDataConstants.ARCHIVED_TABLE}")
-    suspend fun getAllArchivedEntities(): Flow<List<ArchivedEntity>>
+    fun getAllArchivedEntities(): Flow<List<ArchivedEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertArchivedEntity(entity: ArchivedEntity)

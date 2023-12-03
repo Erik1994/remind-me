@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.Flow
 interface ReminderDao {
 
     @Query("SELECT * FROM ${LocalDataConstants.REMINDER_TABLE}")
-    suspend fun getAllReminderEntities(): Flow<List<ReminderEntity>>
+    fun getAllReminderEntities(): Flow<List<ReminderEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertReminderEntity(entity: ReminderEntity)

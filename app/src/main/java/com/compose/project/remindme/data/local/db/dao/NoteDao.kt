@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.Flow
 interface NoteDao {
 
     @Query("SELECT * FROM ${LocalDataConstants.NOTE_TABLE}")
-    suspend fun getAllNoteEntities(): Flow<List<NoteEntity>>
+    fun getAllNoteEntities(): Flow<List<NoteEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertNoteEntity(entity: NoteEntity)
