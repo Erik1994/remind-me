@@ -6,7 +6,6 @@ import com.compose.project.remindme.data.local.db.entity.ArchivedEntity
 import com.compose.project.remindme.domain.model.ArchivedData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import javax.inject.Inject
 
 class ArchivedDataRepositoryImpl (
     private val archivedDao: ArchivedDao,
