@@ -7,7 +7,7 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import com.compose.project.remindme.ui.Dimensions
-import com.compose.project.remindme.ui.LocalSpacing
+import com.compose.project.remindme.ui.LocalDimension
 
 private val DarkColorScheme = darkColorScheme(
     primary = BrightGreen,
@@ -65,7 +65,7 @@ fun RemindMeTheme(
 //        }
 //    }
 
-    CompositionLocalProvider(LocalSpacing provides Dimensions()) {
+    CompositionLocalProvider(LocalDimension provides Dimensions()) {
         MaterialTheme(
             colorScheme = colorScheme,
             typography = Typography,
