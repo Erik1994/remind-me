@@ -1,4 +1,4 @@
-package com.compose.project.remindme
+package com.compose.project.remindme.activity
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -46,7 +46,13 @@ class MainActivity : ComponentActivity() {
                             SnackbarHost(snackBarHostState)
                         },
                         bottomBar = {
-                            BottomNavigationBar(onNavigate = navController::navigate)
+                            BottomNavigationBar(
+                                snackBarHostState = snackBarHostState,
+                                onNavigate = {
+                                    it?.let { route ->
+                                        navController.navigate(route = route)
+                                    } ?: navController.navigateUp()
+                                })
                         }
                     ) { padding ->
                         NavHost(
