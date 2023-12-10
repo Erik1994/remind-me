@@ -50,7 +50,7 @@ fun DateTimePicker(
         properties = DialogProperties(
             dismissOnClickOutside = false
         ),
-        backgroundColor = MaterialTheme.colorScheme.surface,
+        backgroundColor = MaterialTheme.colorScheme.surfaceVariant,
         buttons = {
             positiveButton(
                 text = stringResource(id = R.string.ok), textStyle = TextStyle(
@@ -107,7 +107,7 @@ fun DateTimePicker(
         properties = DialogProperties(
             dismissOnClickOutside = false
         ),
-        backgroundColor = MaterialTheme.colorScheme.surface,
+        backgroundColor = MaterialTheme.colorScheme.surfaceVariant,
         buttons = {
             positiveButton(
                 text = stringResource(id = R.string.ok), textStyle = TextStyle(

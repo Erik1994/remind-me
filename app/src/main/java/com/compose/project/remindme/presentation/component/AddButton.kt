@@ -10,7 +10,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.tooling.preview.Preview
+import com.compose.project.remindme.presentation.component.color.ColorItem
+import com.compose.project.remindme.presentation.component.color.ColorItemData
 import com.compose.project.remindme.ui.LocalDimension
+import com.compose.project.remindme.ui.theme.RemindMeTheme
 
 @Composable
 fun AddButton(
@@ -33,5 +37,19 @@ fun AddButton(
 
     ) {
         Icon(imageVector = icon, contentDescription = "")
+    }
+}
+
+@Composable
+@Preview(showBackground = true)
+fun RoundedIconSquarePreview() {
+    RemindMeTheme {
+        AddButton(
+            containerColor =  MaterialTheme.colorScheme.primary,
+        contentColor = MaterialTheme.colorScheme.onPrimary,
+
+            ) {
+
+        }
     }
 }
