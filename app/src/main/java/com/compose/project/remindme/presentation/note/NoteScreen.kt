@@ -34,7 +34,7 @@ fun NoteScreen(
                 CreateEditItemDialog(
                     itemDialogType = ItemDialogType.NoteDialog,
                     onCreateClick = {},
-                    onCancelClick = {viewModel.sendEvent(NoteEvent.CancelClickEvent)}
+                    onCancelClick = {viewModel.sendEvent(NoteEvent.DialogCancelClickEvent)}
                 )
             }
         }

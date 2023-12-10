@@ -8,6 +8,7 @@ import com.compose.project.remindme.domain.model.ArchivedData
 import com.compose.project.remindme.domain.model.NoteData
 import com.compose.project.remindme.domain.model.ReminderData
 import java.time.LocalDate
+import java.time.LocalDateTime
 
 val NOTE_ENTITY_TO_DATA_MAPPER = Mapper<NoteEntity, NoteData> { s ->
     s.run {
@@ -15,7 +16,7 @@ val NOTE_ENTITY_TO_DATA_MAPPER = Mapper<NoteEntity, NoteData> { s ->
             id = id,
             title = title,
             description = description,
-            localDate = LocalDate.of(year, month, dayOfMonth),
+            localDate = LocalDateTime.of(year, month, dayOfMonth, hour, minute),
             isCompleted = isCompleted
         )
     }
@@ -27,7 +28,7 @@ val REMINDER_ENTITY_TO_DATA_MAPPER = Mapper<ReminderEntity, ReminderData> { s ->
             id = id,
             title = title,
             description = description,
-            localDate = LocalDate.of(year, month, dayOfMonth),
+            localDate = LocalDateTime.of(year, month, dayOfMonth, hour, minute),
             isCompleted = isCompleted
         )
     }
@@ -39,7 +40,7 @@ val ARCHIVED_ENTITY_TO_DATA_MAPPER = Mapper<ArchivedEntity, ArchivedData> { s ->
             id = id,
             title = title,
             description = description,
-            localDate = LocalDate.of(year, month, dayOfMonth),
+            localDate = LocalDateTime.of(year, month, dayOfMonth, hour, minute),
             isCompleted = isCompleted
         )
     }

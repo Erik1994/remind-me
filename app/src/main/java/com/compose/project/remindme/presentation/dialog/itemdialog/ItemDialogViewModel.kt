@@ -36,7 +36,10 @@ class ItemDialogViewModel @Inject constructor() : BaseViewModel() {
 
     fun sendEvent(dialogEvent: ItemDialogEvent) {
         when (dialogEvent) {
-            is ItemDialogEvent.DismissEvent -> sendUiEvent(UiEvent.NavigateUp)
+            is ItemDialogEvent.DismissEvent -> {
+                sendUiEvent(UiEvent.NavigateUp)
+                clearState()
+            }
             is ItemDialogEvent.CreateEvent -> handleCreateEvent()
             is ItemDialogEvent.ItemDescriptionChangedEvent -> {
                 itemDialogState = itemDialogState.copy(
@@ -77,6 +80,10 @@ class ItemDialogViewModel @Inject constructor() : BaseViewModel() {
                 )
             }
         }
+    }
+
+    fun clearState() {
+        itemDialogState = ItemDialogState()
     }
 
     private fun handleCreateEvent() {

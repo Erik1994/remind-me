@@ -17,7 +17,7 @@ class NoteViewModel @Inject constructor() : ScreenBaseViewModel() {
             is NoteEvent.AddButtonClickEvent -> {
                 noteState = noteState.copy(showCreateNoteDialog = true)
             }
-            is NoteEvent.CancelClickEvent -> {
+            is NoteEvent.DialogCancelClickEvent -> {
                 noteState = noteState.copy(showCreateNoteDialog = false)
             }
         }

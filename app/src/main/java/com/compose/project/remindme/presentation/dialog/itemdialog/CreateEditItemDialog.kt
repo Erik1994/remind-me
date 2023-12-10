@@ -1,9 +1,7 @@
 package com.compose.project.remindme.presentation.dialog.itemdialog
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -24,14 +22,9 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalTextInputService
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.window.Dialog
@@ -59,7 +52,6 @@ fun CreateEditItemDialog(
     val itemDialogState = viewModel.itemDialogState
     val dimensions = LocalDimension.current
     val context = LocalContext.current
-    var interactionSource by remember { mutableStateOf<MutableInteractionSource?>(null) }
 
     LaunchedEffect(key1 = true) {
         viewModel.uiEvent.collect { uiEvent ->
@@ -72,6 +64,7 @@ fun CreateEditItemDialog(
                         itemDescription = itemDialogState.itemDescription
                     )
                     onCreateClick(dialogItemData)
+                    viewModel.clearState()
                 }
 
                 is UiEvent.NavigateUp -> {
@@ -84,7 +77,7 @@ fun CreateEditItemDialog(
     }
 
     Dialog(
-        onDismissRequest = {},
+        onDismissRequest = { viewModel.sendEvent(ItemDialogEvent.DismissEvent) },
         properties = DialogProperties(dismissOnBackPress = false)
     ) {
         Card(
@@ -159,9 +152,7 @@ fun CreateEditItemDialog(
                             textAlign = TextAlign.Start
                         )
                         Icon(imageVector = Icons.Default.DateRange, contentDescription = "")
-
                     }
-
                 }
                 Spacer(modifier = Modifier.height(dimensions.spaceSmall))
                 ColorItemsHorizontalList(

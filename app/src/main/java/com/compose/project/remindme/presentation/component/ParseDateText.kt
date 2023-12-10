@@ -13,10 +13,25 @@ fun ParseDateText(
 ): String {
     val today = LocalDate.now()
     val time = dateTime.toLocalTime()
-    return when(val date = dateTime.toLocalDate()) {
-        today -> "${stringResource(id = R.string.today)}, ${DateTimeFormatter.ofPattern("HH:mm").format(time)}"
-        today.minusDays(1) -> "${stringResource(id = R.string.yesterday)}, ${DateTimeFormatter.ofPattern("HH:mm").format(time)}"
-        today.plusDays(1) -> "${stringResource(id = R.string.tomorrow)}, ${DateTimeFormatter.ofPattern("HH:mm").format(time)}"
-        else -> "${DateTimeFormatter.ofPattern("d MMM yy").format(date)}, ${DateTimeFormatter.ofPattern("HH:mm").format(time)}"
+    return when (val date = dateTime.toLocalDate()) {
+        today -> "${stringResource(id = R.string.today)}, ${
+            DateTimeFormatter.ofPattern("HH:mm").format(time)
+        }"
+
+        today.minusDays(1) -> "${stringResource(id = R.string.yesterday)}, ${
+            DateTimeFormatter.ofPattern(
+                "HH:mm"
+            ).format(time)
+        }"
+
+        today.plusDays(1) -> "${stringResource(id = R.string.tomorrow)}, ${
+            DateTimeFormatter.ofPattern(
+                "HH:mm"
+            ).format(time)
+        }"
+
+        else -> "${
+            DateTimeFormatter.ofPattern("d MMM yy").format(date)
+        }, ${DateTimeFormatter.ofPattern("HH:mm").format(time)}"
     }
 }

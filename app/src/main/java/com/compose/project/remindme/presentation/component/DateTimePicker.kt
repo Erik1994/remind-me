@@ -8,16 +8,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import com.compose.project.remindme.R
-import com.compose.project.remindme.ui.theme.Black
 import com.compose.project.remindme.ui.theme.Green10
-import com.compose.project.remindme.ui.theme.Green20
 import com.compose.project.remindme.ui.theme.Green30
 import com.compose.project.remindme.ui.theme.TextWhite
 import com.vanpra.composematerialdialogs.MaterialDialog

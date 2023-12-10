@@ -17,6 +17,8 @@ val NOTE_DATA_TO_ENTITY_MAPPER = Mapper<NoteData, NoteEntity> { s ->
             year = localDate.year,
             month = localDate.monthValue,
             dayOfMonth = localDate.dayOfMonth,
+            hour = localDate.hour,
+            minute = localDate.minute,
             isCompleted = isCompleted
         )
     }
@@ -31,6 +33,8 @@ val REMINDER_DATA_TO_ENTITY_MAPPER = Mapper<ReminderData, ReminderEntity> { s ->
             year = localDate.year,
             month = localDate.monthValue,
             dayOfMonth = localDate.dayOfMonth,
+            hour = localDate.hour,
+            minute = localDate.minute,
             isCompleted = isCompleted
         )
     }
@@ -45,6 +49,8 @@ val ARCHIVED_DATA_TO_ENTITY_MAPPER = Mapper<ArchivedData, ArchivedEntity> { s ->
             year = localDate.year,
             month = localDate.monthValue,
             dayOfMonth = localDate.dayOfMonth,
+            hour = localDate.hour,
+            minute = localDate.minute,
             isCompleted = isCompleted
         )
     }
