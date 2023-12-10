@@ -15,29 +15,22 @@ import com.compose.project.remindme.ui.theme.RemindMeTheme
 
 @Composable
 fun ColorItemsHorizontalList(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    colorItems: List<ColorItemData>,
+    onColorItemClick: (Color) -> Unit
 ) {
     val dimension = LocalDimension.current
     LazyRow(
         modifier = modifier
             .fillMaxWidth()
-            .padding(
-                start = dimension.spaceSmall,
-                end = dimension.spaceSmall,
-                top = dimension.spaceSmall,
-                bottom = dimension.spaceSmall
-            ),
+            .padding(dimension.spaceMedium),
         horizontalArrangement = Arrangement.spacedBy(dimension.spaceSmall)
-
     ) {
         items(
             items = colorItems,
             key = { item -> item.id }
         ) { item ->
-
-            ColorItem(colorItemData = item){
-
-            }
+            ColorItem(colorItemData = item, onItemClick = onColorItemClick)
         }
     }
 }
@@ -46,6 +39,6 @@ fun ColorItemsHorizontalList(
 @Preview(showBackground = true)
 fun ColorItemsHorizontalListPreview() {
     RemindMeTheme {
-        ColorItemsHorizontalList()
+        ColorItemsHorizontalList(colorItems = colorItemList, onColorItemClick = {})
     }
 }

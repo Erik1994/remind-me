@@ -1,6 +1,7 @@
 package com.compose.project.remindme.presentation.component.color
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
@@ -25,7 +26,6 @@ fun ColorItem(
     colorItemData: ColorItemData,
     onItemClick: (Color) -> Unit
 ) {
-    val dimension = LocalDimension.current
     Box(
         modifier = modifier
             .size(55.dp)
@@ -33,7 +33,9 @@ fun ColorItem(
             .background(
                 color = colorItemData.color,
                 shape = MaterialTheme.shapes.small
-            ),
+            ).clickable {
+                onItemClick(colorItemData.color)
+            },
         contentAlignment = Alignment.Center
     ) {
         if (colorItemData.isSelected) {
@@ -53,7 +55,7 @@ fun ColorItem(
 fun RoundedIconSquarePreview() {
     RemindMeTheme {
         ColorItem(
-            colorItemData = ColorItemData(color = Color.Black, isSelected = true),
+            colorItemData = ColorItemData(color = Color.White, isSelected = true),
 
             ) {
 

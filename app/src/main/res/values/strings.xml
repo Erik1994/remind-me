@@ -6,4 +6,16 @@
     <string name="reminder">Reminder</string>
     <string name="note">Note</string>
     <string name="archived">Archived</string>
+    <string name="create_note">Create Note</string>
+    <string name="create_reminder">Create Reminder</string>
+    <string name="enter_date">Enter date and time</string>
+    <string name="enter_description">Enter description</string>
+    <string name="enter_title">Enter title</string>
+    <string name="date_time_error_message">Date and dime are required fields</string>
+    <string name="title_error_message">Title is required field</string>
+    <string name="cancel">Cancel</string>
+    <string name="crate">Create</string>
+    <string name="ok">Ok</string>
+    <string name="date_picker">Pick a date</string>
+    <string name="time_picker">Pick a time</string>
 </resources>

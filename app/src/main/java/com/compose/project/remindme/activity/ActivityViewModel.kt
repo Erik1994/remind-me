@@ -1,8 +1,28 @@
 package com.compose.project.remindme.activity
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import com.compose.project.remindme.presentation.common.BaseViewModel
+import com.compose.project.remindme.presentation.event.UiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class ActivityViewModel @Inject constructor() : BaseViewModel()
+class ActivityViewModel @Inject constructor() : BaseViewModel() {
+    var activityState by mutableStateOf(ActivityState())
+        private set
+
+    fun sendEvent(activityEvent: ActivityEvent) {
+        when (activityEvent) {
+            is ActivityEvent.BottomNavigationItemClickEvent -> {
+                activityState = activityState.copy(
+                    bottomNavigationItemList = activityState.bottomNavigationItemList.map {
+                        it.copy(isSelected = it.route == activityEvent.bottomNavigationItem.route)
+                    }
+                )
+                sendUiEvent(UiEvent.Navigate(activityEvent.bottomNavigationItem.route))
+            }
+        }
+    }
+}

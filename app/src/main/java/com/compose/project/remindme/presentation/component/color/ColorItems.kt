@@ -9,8 +9,8 @@ data class ColorItemData(
     val isSelected: Boolean = false
 )
 
-val colorItems: List<ColorItemData> = buildList {
-    add(ColorItemData(color = Color.Gray))
+val colorItemList: List<ColorItemData> = buildList {
+    add(ColorItemData(color = Color.Gray, isSelected = true))
     add(ColorItemData(color = Color.LightGray))
     add(ColorItemData(color = Color.DarkGray))
     add(ColorItemData(color = Color.Green))

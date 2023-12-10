@@ -17,6 +17,7 @@ data class BottomNavigationItem(
     val hasNews: Boolean,
     val selectedIcon: ImageVector,
     val unSelectedIcon: ImageVector,
+    val isSelected: Boolean = false,
     val badgeCount: Int? = null
 )
 
@@ -26,7 +27,8 @@ val bottomNavigationItems = listOf(
         title = UiText.StringResource(R.string.note),
         hasNews = false,
         selectedIcon = Icons.Filled.List,
-        unSelectedIcon = Icons.Outlined.List
+        unSelectedIcon = Icons.Outlined.List,
+        isSelected = true
     ),
     BottomNavigationItem(
         route = Route.REMINDER,

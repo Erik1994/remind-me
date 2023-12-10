@@ -6,41 +6,66 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.graphics.Color
 import com.compose.project.remindme.ui.Dimensions
 import com.compose.project.remindme.ui.LocalDimension
 
 private val DarkColorScheme = darkColorScheme(
-    primary = BrightGreen,
-    primaryContainer = DarkGreen,
-    secondary = Orange,
-    background = White,
-    onBackground = TextWhite,
-    surface = MediumGray,
-    onSurface = TextWhite,
-    onPrimary = White,
-    onSecondary = White,
-    error = ErrorRed,
-    tertiary = Green30,
-    tertiaryContainer = Green40,
-    surfaceVariant = LightGray,
-    onSurfaceVariant = GreenGrey30
+    primary = Green80,
+    onPrimary = Green20,
+    primaryContainer = Green30,
+    onPrimaryContainer = Green90,
+    inversePrimary = Green40,
+    secondary = DarkGreen80,
+    onSecondary = DarkGreen20,
+    secondaryContainer = DarkGreen30,
+    onSecondaryContainer = DarkGreen90,
+    tertiary = Orange80,
+    onTertiary = Orange20,
+    tertiaryContainer = Orange30,
+    onTertiaryContainer = Orange90,
+    error = Red80,
+    onError = Red20,
+    errorContainer = Red30,
+    onErrorContainer = Red90,
+    background = Grey10,
+    onBackground = Grey90,
+    surface = Grey10,
+    onSurface = Grey80,
+    inverseSurface = Grey90,
+    inverseOnSurface = Grey20,
+    surfaceVariant = GreenGrey30,
+    onSurfaceVariant = GreenGrey80,
+    outline = GreenGrey60
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = BrightGreen,
-    primaryContainer = DarkGreen,
-    secondary = Orange,
-    background = White,
-    onBackground = DarkGray,
-    surface = MediumGray,
-    onSurface = TextWhite,
-    onPrimary = White,
-    onSecondary = White,
-    error = ErrorRed,
-    tertiary = Green30,
-    tertiaryContainer = Green40,
-    surfaceVariant = LightGray,
-    onSurfaceVariant = GreenGrey30
+    primary = Green40,
+    onPrimary = Color.White,
+    primaryContainer = Green90,
+    onPrimaryContainer = Green10,
+    inversePrimary = Green80,
+    secondary = DarkGreen40,
+    onSecondary = Color.White,
+    secondaryContainer = DarkGreen90,
+    onSecondaryContainer = DarkGreen10,
+    tertiary = Orange40,
+    onTertiary = Color.White,
+    tertiaryContainer = Orange90,
+    onTertiaryContainer = Orange10,
+    error = Red40,
+    onError = Color.White,
+    errorContainer = Red90,
+    onErrorContainer = Red10,
+    background = Grey99,
+    onBackground = Grey10,
+    surface = Grey99,
+    onSurface = Grey10,
+    inverseSurface = Grey20,
+    inverseOnSurface = Grey95,
+    surfaceVariant = GreenGrey90,
+    onSurfaceVariant = GreenGrey30,
+    outline = GreenGrey50
 )
 
 @Composable

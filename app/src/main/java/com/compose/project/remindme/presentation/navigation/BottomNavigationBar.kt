@@ -9,50 +9,20 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.hilt.navigation.compose.hiltViewModel
-import com.compose.project.remindme.activity.ActivityViewModel
-import com.compose.project.remindme.presentation.event.UiEvent
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BottomNavigationBar(
-    modifier: Modifier = Modifier,
-    snackBarHostState: SnackbarHostState,
-    viewModel: ActivityViewModel = hiltViewModel(),
-    itemList: List<BottomNavigationItem> = bottomNavigationItems,
-    onNavigate: (String?) -> Unit
+    itemList: List<BottomNavigationItem>,
+    onNavigate: (BottomNavigationItem) -> Unit
 ) {
     val context = LocalContext.current
-    var selectedItemIndex by rememberSaveable {
-        mutableIntStateOf(0)
-    }
-
-    LaunchedEffect(key1 = true) {
-        viewModel.uiEvent.collect {
-            when (it) {
-                is UiEvent.Navigate -> onNavigate(it.route)
-                is UiEvent.ShowSnackBar -> snackBarHostState.showSnackbar(
-                    message = it.message.asString(
-                        context
-                    )
-                )
-                else -> onNavigate(null)
-            }
-        }
-    }
     NavigationBar {
-        itemList.forEachIndexed { index, bottomNavigationItem ->
+        itemList.forEach { bottomNavigationItem ->
             NavigationBarItem(
                 colors = NavigationBarItemDefaults.colors(
                     selectedIconColor = MaterialTheme.colorScheme.primary,
@@ -63,10 +33,9 @@ fun BottomNavigationBar(
                     unselectedIconColor = MaterialTheme.colorScheme.onSurface,
                     unselectedTextColor = MaterialTheme.colorScheme.onSurface
                 ),
-                selected = selectedItemIndex == index,
+                selected = bottomNavigationItem.isSelected,
                 onClick = {
-                    selectedItemIndex = index
-                    viewModel.sendUiEvent(UiEvent.Navigate(bottomNavigationItem.route))
+                    onNavigate(bottomNavigationItem)
                 },
                 label = {
                     Text(text = bottomNavigationItem.title.asString(context))
@@ -84,7 +53,7 @@ fun BottomNavigationBar(
                         }
                     ) {
                         Icon(
-                            imageVector = if (index == selectedItemIndex) {
+                            imageVector = if (bottomNavigationItem.isSelected) {
                                 bottomNavigationItem.selectedIcon
                             } else bottomNavigationItem.unSelectedIcon,
                             contentDescription = bottomNavigationItem.title.asString(context)

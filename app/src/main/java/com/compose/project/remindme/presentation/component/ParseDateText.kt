@@ -4,17 +4,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import com.compose.project.remindme.R
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 @Composable
 fun ParseDateText(
-    date: LocalDate
+    dateTime: LocalDateTime
 ): String {
     val today = LocalDate.now()
-    return when(date) {
-        today -> "${stringResource(id = R.string.today)}, ${DateTimeFormatter.ofPattern("HH:mm").format(date)}"
-        today.minusDays(1) -> "${stringResource(id = R.string.yesterday)}, ${DateTimeFormatter.ofPattern("HH:mm").format(date)}"
-        today.plusDays(1) -> "${stringResource(id = R.string.tomorrow)}, ${DateTimeFormatter.ofPattern("HH:mm").format(date)}"
-        else -> DateTimeFormatter.ofPattern("d MMM yy, HH:mm").format(date)
+    val time = dateTime.toLocalTime()
+    return when(val date = dateTime.toLocalDate()) {
+        today -> "${stringResource(id = R.string.today)}, ${DateTimeFormatter.ofPattern("HH:mm").format(time)}"
+        today.minusDays(1) -> "${stringResource(id = R.string.yesterday)}, ${DateTimeFormatter.ofPattern("HH:mm").format(time)}"
+        today.plusDays(1) -> "${stringResource(id = R.string.tomorrow)}, ${DateTimeFormatter.ofPattern("HH:mm").format(time)}"
+        else -> "${DateTimeFormatter.ofPattern("d MMM yy").format(date)}, ${DateTimeFormatter.ofPattern("HH:mm").format(time)}"
     }
 }

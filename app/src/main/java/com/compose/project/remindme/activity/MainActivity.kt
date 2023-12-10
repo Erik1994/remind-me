@@ -11,12 +11,16 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.compose.project.remindme.presentation.archived.ArchivedScreen
+import com.compose.project.remindme.presentation.event.UiEvent
 import com.compose.project.remindme.presentation.navigation.BottomNavigationBar
 import com.compose.project.remindme.presentation.navigation.Route
 import com.compose.project.remindme.presentation.note.NoteScreen
@@ -36,9 +40,26 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
+                    val context = LocalContext.current
                     val navController = rememberNavController()
                     val snackBarHostState = remember {
                         SnackbarHostState()
+                    }
+                    val viewModel: ActivityViewModel = hiltViewModel()
+                    val activityState = viewModel.activityState
+
+                    LaunchedEffect(key1 = true) {
+                        viewModel.uiEvent.collect {
+                            when (it) {
+                                is UiEvent.Navigate -> navController.navigate(it.route)
+                                is UiEvent.ShowSnackBar -> snackBarHostState.showSnackbar(
+                                    message = it.message.asString(
+                                        context
+                                    )
+                                )
+                                else -> navController.navigateUp()
+                            }
+                        }
                     }
                     Scaffold(
                         modifier = Modifier.fillMaxSize(),
@@ -46,13 +67,9 @@ class MainActivity : ComponentActivity() {
                             SnackbarHost(snackBarHostState)
                         },
                         bottomBar = {
-                            BottomNavigationBar(
-                                snackBarHostState = snackBarHostState,
-                                onNavigate = {
-                                    it?.let { route ->
-                                        navController.navigate(route = route)
-                                    } ?: navController.navigateUp()
-                                })
+                            BottomNavigationBar(itemList = activityState.bottomNavigationItemList) {
+                                viewModel.sendEvent(ActivityEvent.BottomNavigationItemClickEvent(it))
+                            }
                         }
                     ) { padding ->
                         NavHost(
