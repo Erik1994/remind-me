@@ -4,11 +4,14 @@ import com.compose.project.remindme.core.util.Mapper
 import com.compose.project.remindme.data.local.db.dao.ArchivedDao
 import com.compose.project.remindme.data.local.db.entity.ArchivedEntity
 import com.compose.project.remindme.domain.model.ArchivedData
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.withContext
 
-class ArchivedDataRepositoryImpl (
+class ArchivedDataRepositoryImpl(
     private val archivedDao: ArchivedDao,
+    private val ioDispatcher: CoroutineDispatcher,
     private val dataToEntityMapper: Mapper<ArchivedData, ArchivedEntity>,
     private val entityToDataMapper: Mapper<ArchivedEntity, ArchivedData>
 ) : ArchivedDataRepository {
@@ -20,10 +23,14 @@ class ArchivedDataRepositoryImpl (
     }
 
     override suspend fun insertArchivedEntity(data: ArchivedData) {
-        archivedDao.insertArchivedEntity(dataToEntityMapper.map(data))
+        withContext(ioDispatcher) {
+            archivedDao.insertArchivedEntity(dataToEntityMapper.map(data))
+        }
     }
 
     override suspend fun deleteArchivedEntity(data: ArchivedData) {
-        archivedDao.deleteArchivedEntity(dataToEntityMapper.map(data))
+        withContext(ioDispatcher) {
+            archivedDao.deleteArchivedEntity(dataToEntityMapper.map(data))
+        }
     }
 }

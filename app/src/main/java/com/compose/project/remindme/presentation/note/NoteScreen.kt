@@ -8,8 +8,11 @@ import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.compose.project.remindme.R
 import com.compose.project.remindme.presentation.component.AddButton
+import com.compose.project.remindme.presentation.component.ScreenHeader
 import com.compose.project.remindme.presentation.dialog.itemdialog.CreateEditItemDialog
 import com.compose.project.remindme.presentation.dialog.itemdialog.ItemDialogType
 
@@ -29,12 +32,31 @@ fun NoteScreen(
         },
         floatingActionButtonPosition = FabPosition.End
     ) { paddingValues ->
-        Column(modifier = Modifier.padding(paddingValues).fillMaxSize()) {
+        Column(
+            modifier = Modifier
+                .padding(paddingValues)
+                .fillMaxSize()
+        ) {
+            ScreenHeader(title = stringResource(id = R.string.notes))
+            NoteItemsGrid(
+                notes = noteState.noteItems,
+                onItemClick = {
+                   viewModel.sendEvent(NoteEvent.ItemClickEvent(it))
+                },
+                onDeleteClick = {
+                    viewModel.sendEvent(NoteEvent.ItemDeleteClickEvent(it))
+                }
+            )
             if (noteState.showCreateNoteDialog) {
                 CreateEditItemDialog(
                     itemDialogType = ItemDialogType.NoteDialog,
-                    onCreateClick = {},
-                    onCancelClick = {viewModel.sendEvent(NoteEvent.DialogCancelClickEvent)}
+                    onCreateClick = {
+                        viewModel.sendEvent(NoteEvent.DialogCreateClickEvent(it))
+                    },
+                    onCancelClick = {
+                        viewModel.sendEvent(NoteEvent.DialogCancelClickEvent)
+                    },
+                    defaultDialogData = noteState.dialogItemData
                 )
             }
         }

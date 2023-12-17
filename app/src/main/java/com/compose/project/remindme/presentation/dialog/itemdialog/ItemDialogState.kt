@@ -12,5 +12,5 @@ data class ItemDialogState(
     val itemDescription: String = "",
     val shouldShowErrorMessage: Boolean = false,
     val needSetDefaultValue: Boolean = true,
-    val needShowDateTimePicker: Boolean = false
+    val needShowDateTimePicker: Boolean = false,
 )

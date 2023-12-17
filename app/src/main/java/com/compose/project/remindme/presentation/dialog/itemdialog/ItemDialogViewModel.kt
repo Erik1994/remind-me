@@ -90,7 +90,9 @@ class ItemDialogViewModel @Inject constructor() : BaseViewModel() {
         if (itemDialogState.itemTitle.isBlank()) {
             itemDialogState = itemDialogState.copy(shouldShowErrorMessage = true)
         } else {
-            itemDialogState = itemDialogState.copy(shouldShowErrorMessage = false)
+            itemDialogState = itemDialogState.copy(
+                shouldShowErrorMessage = false
+            )
             sendUiEvent(UiEvent.Navigate(""))
         }
     }

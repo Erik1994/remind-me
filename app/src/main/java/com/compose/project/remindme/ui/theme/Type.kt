@@ -38,14 +38,22 @@ val Typography = Typography(
         fontWeight = FontWeight.Normal,
         fontSize = 22.sp
     ),
-    headlineLarge = TextStyle(
+
+    headlineMedium = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Normal,
         fontSize = 18.sp
     ),
-    headlineMedium = TextStyle(
+
+    headlineLarge = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Normal,
-        fontSize = 14.sp
+        fontSize = 20.sp
+    ),
+
+    headlineSmall = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.Normal,
+        fontSize = 16.sp
     )
 )

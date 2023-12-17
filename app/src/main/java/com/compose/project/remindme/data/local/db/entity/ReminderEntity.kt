@@ -7,7 +7,7 @@ import com.compose.project.remindme.data.local.constant.LocalDataConstants
 @Entity(tableName = LocalDataConstants.REMINDER_TABLE)
 data class ReminderEntity(
     @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
+    val id: Int? = null,
     val title: String,
     val description: String,
     val year: Int,
@@ -15,5 +15,6 @@ data class ReminderEntity(
     val dayOfMonth: Int,
     val hour: Int,
     val minute: Int,
+    val color: Int,
     val isCompleted: Boolean = false
 )

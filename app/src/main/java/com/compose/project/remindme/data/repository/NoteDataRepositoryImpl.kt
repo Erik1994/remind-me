@@ -4,11 +4,14 @@ import com.compose.project.remindme.core.util.Mapper
 import com.compose.project.remindme.data.local.db.dao.NoteDao
 import com.compose.project.remindme.data.local.db.entity.NoteEntity
 import com.compose.project.remindme.domain.model.NoteData
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.withContext
 
-class NoteDataRepositoryImpl (
+class NoteDataRepositoryImpl(
     private val noteDao: NoteDao,
+    private val ioDispatcher: CoroutineDispatcher,
     private val dataToEntityMapper: Mapper<NoteData, NoteEntity>,
     private val entityToDataMapper: Mapper<NoteEntity, NoteData>
 ) : NoteDataRepository {
@@ -20,10 +23,14 @@ class NoteDataRepositoryImpl (
     }
 
     override suspend fun insertNoteEntity(data: NoteData) {
-        noteDao.insertNoteEntity(dataToEntityMapper.map(data))
+        withContext(ioDispatcher) {
+            noteDao.insertNoteEntity(dataToEntityMapper.map(data))
+        }
     }
 
     override suspend fun deleteNoteEntity(data: NoteData) {
-        noteDao.deleteNoteEntity(dataToEntityMapper.map(data))
+        withContext(ioDispatcher) {
+            noteDao.deleteNoteEntity(dataToEntityMapper.map(data))
+        }
     }
 }

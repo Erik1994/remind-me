@@ -8,7 +8,7 @@ import javax.inject.Inject
 class GetAllNoteDataUseCaseImpl @Inject constructor(
     private val noteDataRepository: NoteDataRepository
 ): GetAllNoteDataUseCase {
-    override suspend fun invoke(): Flow<List<NoteData>> {
+    override fun invoke(): Flow<List<NoteData>> {
         return noteDataRepository.getAllNoteEntities()
     }
 }

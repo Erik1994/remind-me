@@ -15,7 +15,11 @@
     <string name="title_error_message">Title is required field</string>
     <string name="cancel">Cancel</string>
     <string name="crate">Create</string>
+    <string name="update">Update</string>
     <string name="ok">Ok</string>
     <string name="date_picker">Pick a date</string>
     <string name="time_picker">Pick a time</string>
+    <string name="notes">Notes</string>
+    <string name="reminders">Reminders</string>
+    <string name="archives">Archives</string>
 </resources>

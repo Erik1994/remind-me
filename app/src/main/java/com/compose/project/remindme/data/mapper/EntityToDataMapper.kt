@@ -1,5 +1,6 @@
 package com.compose.project.remindme.data.mapper
 
+import androidx.compose.ui.graphics.Color
 import com.compose.project.remindme.core.util.Mapper
 import com.compose.project.remindme.data.local.db.entity.ArchivedEntity
 import com.compose.project.remindme.data.local.db.entity.NoteEntity
@@ -17,7 +18,8 @@ val NOTE_ENTITY_TO_DATA_MAPPER = Mapper<NoteEntity, NoteData> { s ->
             title = title,
             description = description,
             localDate = LocalDateTime.of(year, month, dayOfMonth, hour, minute),
-            isCompleted = isCompleted
+            isCompleted = isCompleted,
+            color = Color(color)
         )
     }
 }
@@ -29,7 +31,8 @@ val REMINDER_ENTITY_TO_DATA_MAPPER = Mapper<ReminderEntity, ReminderData> { s ->
             title = title,
             description = description,
             localDate = LocalDateTime.of(year, month, dayOfMonth, hour, minute),
-            isCompleted = isCompleted
+            isCompleted = isCompleted,
+            color = Color(color)
         )
     }
 }
@@ -41,7 +44,8 @@ val ARCHIVED_ENTITY_TO_DATA_MAPPER = Mapper<ArchivedEntity, ArchivedData> { s ->
             title = title,
             description = description,
             localDate = LocalDateTime.of(year, month, dayOfMonth, hour, minute),
-            isCompleted = isCompleted
+            isCompleted = isCompleted,
+            color = Color(color)
         )
     }
 }

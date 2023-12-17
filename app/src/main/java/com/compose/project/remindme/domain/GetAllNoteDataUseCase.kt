@@ -4,5 +4,5 @@ import com.compose.project.remindme.domain.model.NoteData
 import kotlinx.coroutines.flow.Flow
 
 interface GetAllNoteDataUseCase {
-    suspend operator fun invoke(): Flow<List<NoteData>>
+    operator fun invoke(): Flow<List<NoteData>>
 }

@@ -53,7 +53,7 @@ fun CreateEditItemDialog(
     val dimensions = LocalDimension.current
     val context = LocalContext.current
 
-    LaunchedEffect(key1 = true) {
+    LaunchedEffect(key1 = itemDialogState) {
         viewModel.uiEvent.collect { uiEvent ->
             when (uiEvent) {
                 is UiEvent.Navigate -> {
@@ -63,8 +63,8 @@ fun CreateEditItemDialog(
                         dateTime = itemDialogState.dateTime,
                         itemDescription = itemDialogState.itemDescription
                     )
-                    onCreateClick(dialogItemData)
                     viewModel.clearState()
+                    onCreateClick(dialogItemData)
                 }
 
                 is UiEvent.NavigateUp -> {
@@ -78,7 +78,7 @@ fun CreateEditItemDialog(
 
     Dialog(
         onDismissRequest = { viewModel.sendEvent(ItemDialogEvent.DismissEvent) },
-        properties = DialogProperties(dismissOnBackPress = false)
+        properties = DialogProperties(dismissOnClickOutside = false),
     ) {
         Card(
             modifier = modifier
@@ -131,7 +131,7 @@ fun CreateEditItemDialog(
                     textStyle = LocalTextStyle.current.copy(
                         textAlign = TextAlign.Left
                     ),
-                    maxLines = 2,
+                    maxLines = 3,
                     placeholder = {
                         Text(text = stringResource(id = R.string.enter_description))
                     }
@@ -142,7 +142,8 @@ fun CreateEditItemDialog(
                         modifier = Modifier
                             .clickable {
                                 viewModel.sendEvent(ItemDialogEvent.DateTimeClickedEvent)
-                            }.padding(dimensions.spaceMedium),
+                            }
+                            .padding(dimensions.spaceMedium),
                         horizontalArrangement = Arrangement.Center,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
@@ -170,7 +171,13 @@ fun CreateEditItemDialog(
                     Button(
                         onClick = { viewModel.sendEvent(ItemDialogEvent.CreateEvent) },
                     ) {
-                        Text(stringResource(id = R.string.crate))
+                        Text(
+                            stringResource(
+                                id = if (defaultDialogData == null) {
+                                    R.string.crate
+                                } else R.string.update
+                            )
+                        )
                     }
                     Spacer(modifier = Modifier.width(dimensions.spaceMedium))
                     Button(
