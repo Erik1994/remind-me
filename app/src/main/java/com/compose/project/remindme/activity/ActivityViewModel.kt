@@ -23,6 +23,19 @@ class ActivityViewModel @Inject constructor() : BaseViewModel() {
                 )
                 sendUiEvent(UiEvent.Navigate(activityEvent.bottomNavigationItem.route))
             }
+
+            is ActivityEvent.OnPermissionResultEvent -> {
+                activityState = activityState.copy(needRequestPermission = false)
+                onPermissionResult(
+                    permission = activityEvent.permission,
+                    isGranted = activityEvent.isGranted
+                )
+            }
+
+            is ActivityEvent.DismissPermissionDialogEvent -> {
+                activityState = activityState.copy(needRequestPermission = true)
+                dismissPermissionDialog()
+            }
         }
     }
 }

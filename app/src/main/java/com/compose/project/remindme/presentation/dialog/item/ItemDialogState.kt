@@ -1,4 +1,4 @@
-package com.compose.project.remindme.presentation.dialog.itemdialog
+package com.compose.project.remindme.presentation.dialog.item
 
 import com.compose.project.remindme.presentation.component.color.ColorItemData
 import com.compose.project.remindme.presentation.component.color.colorItemList

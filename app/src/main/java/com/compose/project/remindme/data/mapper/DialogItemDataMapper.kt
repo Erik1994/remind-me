@@ -3,7 +3,7 @@ package com.compose.project.remindme.data.mapper
 import com.compose.project.remindme.core.util.Mapper
 import com.compose.project.remindme.domain.model.NoteData
 import com.compose.project.remindme.domain.model.ReminderData
-import com.compose.project.remindme.presentation.dialog.itemdialog.DialogItemData
+import com.compose.project.remindme.presentation.dialog.item.DialogItemData
 
 val DIALOG_ITEM_TO_NOTE_DATA_MAPPER = Mapper<DialogItemData, NoteData> { s ->
     s.run {

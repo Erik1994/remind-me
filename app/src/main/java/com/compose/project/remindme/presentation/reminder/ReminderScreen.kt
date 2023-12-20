@@ -10,8 +10,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.compose.project.remindme.presentation.component.AddButton
-import com.compose.project.remindme.presentation.dialog.itemdialog.CreateEditItemDialog
-import com.compose.project.remindme.presentation.dialog.itemdialog.ItemDialogType
+import com.compose.project.remindme.presentation.dialog.item.CreateEditItemDialog
+import com.compose.project.remindme.presentation.dialog.item.ItemDialogType
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

@@ -1,4 +1,4 @@
-package com.compose.project.remindme.presentation.dialog.itemdialog
+package com.compose.project.remindme.presentation.dialog.item
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

@@ -22,4 +22,8 @@
     <string name="notes">Notes</string>
     <string name="reminders">Reminders</string>
     <string name="archives">Archives</string>
+    <string name="grant_permission">Grant permission</string>
+    <string name="permission_required">Permission required</string>
+    <string name="permanently_declined_permission_message">It seems you permanently declined notification permission. \nYou can got to the app settings to grant it.</string>
+    <string name="permanently_not_declined_notification_permission_message">This app needs access to notification permission \nto show you reminder notification.</string>
 </resources>
