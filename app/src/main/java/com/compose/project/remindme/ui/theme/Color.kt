@@ -47,7 +47,7 @@ val GreenGrey90 = Color(0xFFe3e8e5)
 val BrightGreen = Color(0xFF00C713)
 val DarkGreen = Color(0xFF00790C)
 
-val Orange =  Color(0xFFFFAA00)
+val Orange = Color(0xFFFFAA00)
 val DarkOrange = Color(0xFFF44336)
 val LightGray = Color(0xFF808080)
 val MediumGray = Color(0xFF404040)
@@ -55,3 +55,37 @@ val DarkGray = Color(0xFF202020)
 val TextWhite = Color(0xFFEEEEEE)
 val White = Color(0XFFFFFFFF)
 val Black = Color(0XFF000000)
+
+val colors = listOf(
+    Orange10,
+    Orange20,
+    Orange30,
+    Orange40,
+    Orange80,
+    Orange90,
+    Green10,
+    Green20,
+    Green30,
+    Green40,
+    Green80,
+    Green90,
+    DarkGreen10,
+    DarkGreen20,
+    DarkGreen30,
+    DarkGreen40,
+    DarkGreen80,
+    DarkGreen90,
+    Red10,
+    Red20,
+    Red30,
+    Red40,
+    Red80,
+    Red90,
+    GreenGrey30,
+    GreenGrey50,
+    GreenGrey60,
+    GreenGrey80,
+    GreenGrey90,
+    BrightGreen,
+    DarkGreen,
+)

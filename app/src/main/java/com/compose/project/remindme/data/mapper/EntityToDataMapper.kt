@@ -18,7 +18,6 @@ val NOTE_ENTITY_TO_DATA_MAPPER = Mapper<NoteEntity, NoteData> { s ->
             title = title,
             description = description,
             localDate = LocalDateTime.of(year, month, dayOfMonth, hour, minute),
-            isCompleted = isCompleted,
             color = Color(color)
         )
     }

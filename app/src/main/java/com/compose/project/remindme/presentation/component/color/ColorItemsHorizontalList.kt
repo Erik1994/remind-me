@@ -39,6 +39,6 @@ fun ColorItemsHorizontalList(
 @Preview(showBackground = true)
 fun ColorItemsHorizontalListPreview() {
     RemindMeTheme {
-        ColorItemsHorizontalList(colorItems = colorItemList, onColorItemClick = {})
+        ColorItemsHorizontalList(colorItems = ColorItemList(), onColorItemClick = {})
     }
 }

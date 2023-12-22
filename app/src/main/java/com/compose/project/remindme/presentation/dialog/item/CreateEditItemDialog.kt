@@ -33,6 +33,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.compose.project.remindme.R
 import com.compose.project.remindme.presentation.component.DateTimePicker
 import com.compose.project.remindme.presentation.component.ParseDateText
+import com.compose.project.remindme.presentation.component.color.ColorItemData
+import com.compose.project.remindme.presentation.component.color.ColorItemList
 import com.compose.project.remindme.presentation.component.color.ColorItemsHorizontalList
 import com.compose.project.remindme.presentation.event.UiEvent
 import com.compose.project.remindme.ui.LocalDimension
@@ -42,13 +44,14 @@ import com.compose.project.remindme.ui.theme.*
 @Composable
 fun CreateEditItemDialog(
     modifier: Modifier = Modifier,
+    colorItemDataList: List<ColorItemData> = ColorItemList(),
     itemDialogType: ItemDialogType,
     defaultDialogData: DialogItemData? = null,
     onCreateClick: (DialogItemData) -> Unit,
     onCancelClick: () -> Unit
 ) {
     val viewModel: ItemDialogViewModel = hiltViewModel()
-    viewModel.setDefaultStateIfNeeded(defaultDialogData, itemDialogType)
+    viewModel.setDefaultStateIfNeeded(defaultDialogData, itemDialogType, colorItemDataList)
     val itemDialogState = viewModel.itemDialogState
     val dimensions = LocalDimension.current
     val context = LocalContext.current

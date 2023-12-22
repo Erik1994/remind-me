@@ -5,10 +5,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewModelScope
 import com.compose.project.remindme.data.mapper.DIALOG_ITEM_TO_NOTE_DATA_MAPPER
-import com.compose.project.remindme.data.mapper.NOTE_DATA_TO_DIALOG_ITEM_MAPPER
+import com.compose.project.remindme.data.mapper.ITEM_DATA_TO_DIALOG_ITEM_MAPPER
 import com.compose.project.remindme.domain.DeleteNoteDataUseCase
 import com.compose.project.remindme.domain.GetAllNoteDataUseCase
 import com.compose.project.remindme.domain.InsertNoteDataUseCase
+import com.compose.project.remindme.domain.model.ItemData
 import com.compose.project.remindme.domain.model.NoteData
 import com.compose.project.remindme.presentation.common.ScreenBaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -44,14 +45,6 @@ class NoteViewModel @Inject constructor(
                 )
             }
 
-            is NoteEvent.ItemClickEvent -> {
-                noteState = noteState.copy(
-                    dialogItemData = NOTE_DATA_TO_DIALOG_ITEM_MAPPER.map(noteEvent.noteData),
-                    showCreateNoteDialog = true,
-                    selectedNoteId = noteEvent.noteData.id
-                )
-            }
-
             is NoteEvent.DialogCreateClickEvent -> {
                 insertNote(
                     DIALOG_ITEM_TO_NOTE_DATA_MAPPER.map(
@@ -64,8 +57,20 @@ class NoteViewModel @Inject constructor(
                     selectedNoteId = null
                 )
             }
+        }
+    }
 
-            is NoteEvent.ItemDeleteClickEvent -> deleteNote(noteEvent.noteData)
+    override fun handleItemClickEvent(itemData: ItemData) {
+        noteState = noteState.copy(
+            dialogItemData = ITEM_DATA_TO_DIALOG_ITEM_MAPPER.map(itemData),
+            showCreateNoteDialog = true,
+            selectedNoteId = itemData.id
+        )
+    }
+
+    override fun handleItemDeleteClickEvent(itemData: ItemData) {
+        (itemData as? NoteData)?.let {
+            deleteNote(it)
         }
     }
 
@@ -87,7 +92,9 @@ class NoteViewModel @Inject constructor(
         getAllNoteDataUseCase()
             .onEach {
                 noteState = noteState.copy(
-                    noteItems = it
+                    itemState = noteState.itemState.copy(
+                        items = it
+                    )
                 )
             }.launchIn(viewModelScope)
     }

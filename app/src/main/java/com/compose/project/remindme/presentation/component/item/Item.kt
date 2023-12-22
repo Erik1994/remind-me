@@ -1,4 +1,4 @@
-package com.compose.project.remindme.presentation.note
+package com.compose.project.remindme.presentation.component.item
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -18,7 +18,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import com.compose.project.remindme.domain.model.ItemData
 import com.compose.project.remindme.domain.model.NoteData
 import com.compose.project.remindme.presentation.component.DateTimeText
 import com.compose.project.remindme.presentation.component.ParseDateText
@@ -27,18 +29,17 @@ import com.compose.project.remindme.ui.LocalDimension
 import com.compose.project.remindme.ui.theme.Black
 import com.compose.project.remindme.ui.theme.RemindMeTheme
 import com.compose.project.remindme.ui.theme.White
-import java.time.LocalDate
 import java.time.LocalDateTime
 
 @Composable
-fun NoteItem(
+fun Item(
     modifier: Modifier = Modifier,
-    noteData: NoteData,
-    onItemClick: (NoteData) -> Unit,
-    onDeleteClick: (NoteData) -> Unit
+    itemData: ItemData,
+    onItemClick: (ItemData) -> Unit,
+    onDeleteClick: (ItemData) -> Unit
 ) {
     val dimensions = LocalDimension.current
-    val colorOnBackground = if (noteData.color.isColorLight()) {
+    val colorOnBackground = if (itemData.color.isColorLight()) {
         Black
     } else White
     Card(
@@ -46,19 +47,19 @@ fun NoteItem(
             .fillMaxWidth()
             .wrapContentHeight()
             .background(
-                color = noteData.color,
+                color = itemData.color,
                 shape = MaterialTheme.shapes.small
             )
             .padding(dimensions.spaceSmall)
             .clickable {
-                onItemClick(noteData)
+                onItemClick(itemData)
             },
         shape = MaterialTheme.shapes.small
     ) {
         Column(
             modifier = Modifier
                 .background(
-                    color = noteData.color,
+                    color = itemData.color,
                     shape = MaterialTheme.shapes.small
                 )
                 .fillMaxWidth()
@@ -71,13 +72,14 @@ fun NoteItem(
                 Text(
                     modifier = Modifier
                         .weight(1f),
-                    text = noteData.title,
+                    text = itemData.title,
                     style = MaterialTheme.typography.headlineLarge,
+                    fontWeight = FontWeight.Bold,
                     color = colorOnBackground
                 )
                 Icon(
                     modifier = Modifier.clickable {
-                        onDeleteClick(noteData)
+                        onDeleteClick(itemData)
                     },
                     imageVector = Icons.Filled.Delete,
                     contentDescription = "",
@@ -88,14 +90,14 @@ fun NoteItem(
             Text(
                 modifier = Modifier
                     .fillMaxWidth(),
-                text = noteData.description,
+                text = itemData.description,
                 style = MaterialTheme.typography.headlineMedium,
                 color = colorOnBackground
             )
             Spacer(modifier = Modifier.height(dimensions.spaceMedium))
             DateTimeText(
-                dateTime = ParseDateText(dateTime = noteData.localDate),
-                backGroundColor = noteData.color
+                dateTime = ParseDateText(dateTime = itemData.localDate),
+                backGroundColor = itemData.color
             )
         }
     }
@@ -105,8 +107,8 @@ fun NoteItem(
 @Preview(showBackground = true)
 fun NoteItemPreview() {
     RemindMeTheme {
-        NoteItem(
-            noteData = NoteData(
+        Item(
+            itemData = NoteData(
                 color = Color.Gray,
                 title = "Quick note",
                 description = "Some note to use later",

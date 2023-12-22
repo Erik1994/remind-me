@@ -3,6 +3,7 @@ package com.compose.project.remindme.presentation.reminder
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import com.compose.project.remindme.domain.model.ItemData
 import com.compose.project.remindme.presentation.common.ScreenBaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -21,5 +22,13 @@ class ReminderViewModel @Inject constructor() : ScreenBaseViewModel() {
                 reminderState = reminderState.copy(showCreateNoteDialog = false)
             }
         }
+    }
+
+    override fun handleItemClickEvent(itemData: ItemData) {
+
+    }
+
+    override fun handleItemDeleteClickEvent(itemData: ItemData) {
+
     }
 }

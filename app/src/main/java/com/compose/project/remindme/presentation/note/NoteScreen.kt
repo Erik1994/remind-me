@@ -13,6 +13,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.compose.project.remindme.R
 import com.compose.project.remindme.presentation.component.AddButton
 import com.compose.project.remindme.presentation.component.ScreenHeader
+import com.compose.project.remindme.presentation.component.item.ItemEvent
+import com.compose.project.remindme.presentation.component.item.ItemsGrid
 import com.compose.project.remindme.presentation.dialog.item.CreateEditItemDialog
 import com.compose.project.remindme.presentation.dialog.item.ItemDialogType
 
@@ -38,13 +40,13 @@ fun NoteScreen(
                 .fillMaxSize()
         ) {
             ScreenHeader(title = stringResource(id = R.string.notes))
-            NoteItemsGrid(
-                notes = noteState.noteItems,
+            ItemsGrid(
+                notes = noteState.itemState.items,
                 onItemClick = {
-                   viewModel.sendEvent(NoteEvent.ItemClickEvent(it))
+                   viewModel.sendItemEvent(ItemEvent.ItemClickEvent(it))
                 },
                 onDeleteClick = {
-                    viewModel.sendEvent(NoteEvent.ItemDeleteClickEvent(it))
+                    viewModel.sendItemEvent(ItemEvent.ItemDeleteClickEvent(it))
                 }
             )
             if (noteState.showCreateNoteDialog) {

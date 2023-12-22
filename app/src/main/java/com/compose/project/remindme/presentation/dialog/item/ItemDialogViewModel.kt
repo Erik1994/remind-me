@@ -4,6 +4,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import com.compose.project.remindme.presentation.common.BaseViewModel
+import com.compose.project.remindme.presentation.component.color.ColorItemData
 import com.compose.project.remindme.presentation.event.UiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -13,23 +14,25 @@ class ItemDialogViewModel @Inject constructor() : BaseViewModel() {
     var itemDialogState: ItemDialogState by mutableStateOf(ItemDialogState())
         private set
 
-    fun setDefaultStateIfNeeded(dialogItemData: DialogItemData?, dialogType: ItemDialogType) {
+    fun setDefaultStateIfNeeded(dialogItemData: DialogItemData?, dialogType: ItemDialogType, colorItemDataList: List<ColorItemData>) {
         if (itemDialogState.needSetDefaultValue) {
-            itemDialogState = dialogItemData?.let { dialogItemData ->
+            itemDialogState = dialogItemData?.let { itemData ->
                 itemDialogState.copy(
-                    colorItems = itemDialogState.colorItems.map {
+                    colorItems = colorItemDataList.map {
                         it.copy(
-                            isSelected = dialogItemData.color == it.color
+                            isSelected = itemData.color == it.color
                         )
                     },
                     dialogType = dialogType,
-                    dateTime = dialogItemData.dateTime,
-                    itemTitle = dialogItemData.itemTitle,
-                    itemDescription = dialogItemData.itemDescription,
+                    dateTime = itemData.dateTime,
+                    itemTitle = itemData.itemTitle,
+                    itemDescription = itemData.itemDescription,
                     needSetDefaultValue = false
                 )
             } ?: itemDialogState.copy(
-                dialogType = dialogType, needSetDefaultValue = false
+                colorItems = colorItemDataList,
+                dialogType = dialogType,
+                needSetDefaultValue = false
             )
         }
     }

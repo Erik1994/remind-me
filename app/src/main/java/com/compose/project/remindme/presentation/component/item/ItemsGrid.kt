@@ -1,6 +1,5 @@
-package com.compose.project.remindme.presentation.note
+package com.compose.project.remindme.presentation.component.item
 
-import android.provider.ContactsContract.CommonDataKinds.Note
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,19 +9,19 @@ import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.compose.project.remindme.core.util.orDefault
-import com.compose.project.remindme.domain.model.NoteData
+import com.compose.project.remindme.domain.model.ItemData
 import com.compose.project.remindme.ui.LocalDimension
 
 @Composable
-fun NoteItemsGrid(
+fun ItemsGrid(
     modifier: Modifier = Modifier,
-    notes: List<NoteData>,
-    onItemClick: (NoteData) -> Unit,
-    onDeleteClick: (NoteData) -> Unit
+    notes: List<ItemData>,
+    onItemClick: (ItemData) -> Unit,
+    onDeleteClick: (ItemData) -> Unit
 ) {
     val dimensions = LocalDimension.current
     LazyVerticalStaggeredGrid(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         columns = StaggeredGridCells.Fixed(2),
         contentPadding = PaddingValues(dimensions.spaceMedium),
         verticalItemSpacing = dimensions.spaceMedium,
@@ -34,8 +33,8 @@ fun NoteItemsGrid(
                 item.id.orDefault(0)
             }
         ) { item ->
-            NoteItem(
-                noteData = item,
+            Item(
+                itemData = item,
                 onItemClick = onItemClick,
                 onDeleteClick = onDeleteClick
             )

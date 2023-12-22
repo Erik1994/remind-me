@@ -35,7 +35,9 @@ object LocalDataModule {
             context = app,
             klass = AppDb::class.java,
             name = LocalDataConstants.APP_DB
-        ).build()
+        )
+            .fallbackToDestructiveMigration()
+            .build()
     }
 
     @Provides

@@ -20,7 +20,6 @@ val NOTE_DATA_TO_ENTITY_MAPPER = Mapper<NoteData, NoteEntity> { s ->
             dayOfMonth = localDate.dayOfMonth,
             hour = localDate.hour,
             minute = localDate.minute,
-            isCompleted = isCompleted,
             color = color.toArgb()
         )
     }
