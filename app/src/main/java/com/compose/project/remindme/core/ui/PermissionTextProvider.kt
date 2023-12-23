@@ -1,7 +1,7 @@
-package com.compose.project.remindme.presentation.dialog.permission
+package com.compose.project.remindme.core.ui
 
 import com.compose.project.remindme.R
-import com.compose.project.remindme.core.util.UiText
+import com.compose.project.remindme.core.ui.enums.PermissionsEnum
 
 sealed class PermissionTextProvider(val title: UiText) {
     abstract fun getDescription(isPermanentlyDeclined: Boolean): UiText

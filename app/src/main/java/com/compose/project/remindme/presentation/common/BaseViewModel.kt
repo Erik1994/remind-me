@@ -3,7 +3,7 @@ package com.compose.project.remindme.presentation.common
 import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.compose.project.remindme.presentation.dialog.permission.PermissionsEnum
+import com.compose.project.remindme.core.ui.enums.PermissionsEnum
 import com.compose.project.remindme.presentation.event.UiEvent
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow

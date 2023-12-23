@@ -1,4 +1,4 @@
-package com.compose.project.remindme.presentation.dialog.permission
+package com.compose.project.remindme.core.ui.enums
 
 import android.Manifest
 

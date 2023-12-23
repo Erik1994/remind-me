@@ -1,6 +1,6 @@
 package com.compose.project.remindme.activity
 
-import com.compose.project.remindme.presentation.dialog.permission.PermissionsEnum
+import com.compose.project.remindme.core.ui.enums.PermissionsEnum
 import com.compose.project.remindme.presentation.navigation.BottomNavigationItem
 
 sealed class ActivityEvent {

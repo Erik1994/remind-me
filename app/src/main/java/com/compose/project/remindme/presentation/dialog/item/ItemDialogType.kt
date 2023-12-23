@@ -1,7 +1,7 @@
 package com.compose.project.remindme.presentation.dialog.item
 
 import com.compose.project.remindme.R
-import com.compose.project.remindme.core.util.UiText
+import com.compose.project.remindme.core.ui.UiText
 
 sealed class ItemDialogType(val title: UiText) {
     object NoteDialog : ItemDialogType(UiText.StringResource(R.string.create_note))

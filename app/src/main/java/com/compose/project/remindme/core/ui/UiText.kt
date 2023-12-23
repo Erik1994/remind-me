@@ -1,4 +1,4 @@
-package com.compose.project.remindme.core.util
+package com.compose.project.remindme.core.ui
 
 import android.content.Context
 

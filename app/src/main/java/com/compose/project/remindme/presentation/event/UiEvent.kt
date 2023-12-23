@@ -1,6 +1,6 @@
 package com.compose.project.remindme.presentation.event
 
-import com.compose.project.remindme.core.util.UiText
+import com.compose.project.remindme.core.ui.UiText
 
 sealed class UiEvent {
     object NavigateUp: UiEvent()

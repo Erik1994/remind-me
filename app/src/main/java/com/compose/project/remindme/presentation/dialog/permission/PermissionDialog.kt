@@ -17,6 +17,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.window.DialogProperties
 import com.compose.project.remindme.R
+import com.compose.project.remindme.core.ui.PermissionTextProvider
 import com.compose.project.remindme.ui.LocalDimension
 
 @Composable

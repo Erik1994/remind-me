@@ -1,4 +1,4 @@
-package com.compose.project.remindme.presentation.dialog.permission
+package com.compose.project.remindme.presentation.component
 
 import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.activity.compose.rememberLauncherForActivityResult

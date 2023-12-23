@@ -9,7 +9,7 @@ import androidx.compose.material.icons.outlined.Done
 import androidx.compose.material.icons.outlined.List
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.compose.project.remindme.R
-import com.compose.project.remindme.core.util.UiText
+import com.compose.project.remindme.core.ui.UiText
 
 data class BottomNavigationItem(
     val route: String,
