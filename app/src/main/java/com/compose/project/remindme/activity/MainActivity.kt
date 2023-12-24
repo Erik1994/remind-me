@@ -63,59 +63,12 @@ class MainActivity : ComponentActivity() {
                     val dialogQueue = viewModel.visiblePermissionDialogQueue
 
                     // In case of multiplePermissions
-                    BuildMultiplePermissionsActivityContract(
-                        onPermissionLauncher = { activityContract ->
-                            activityResultContractForMultiplePermissions = activityContract
-                            SideEffect {
-                                if (activityState.needRequestPermission) {
-                                    activityContract.launch(permissionsToRequest)
-                                }
-                            }
-                            dialogQueue
-                                .reversed()
-                                .forEach { permission ->
-                                    PermissionDialog(
-                                        permissionTextProvider = PermissionTextProvider.getPermissionTextProvider(
-                                            permission
-                                        ),
-                                        // You can relay on shouldShowRequestPermissionRationale if before showing the dialog
-                                        // the permission has been requested at least once
-                                        isPermanentlyDeclined = !shouldShowRequestPermissionRationale(
-                                            permission.permission
-                                        ),
-                                        onDismiss = {
-                                            viewModel.sendEvent(ActivityEvent.DismissPermissionDialogEvent)
-                                        },
-                                        onOkClick = {
-                                            viewModel.dismissPermissionDialog()
-                                            activityContract.launch(permissionsToRequest)
-                                        },
-                                        onGoToAppSettingsClick = {
-                                            openAppSettings()
-                                            viewModel.dismissPermissionDialog()
-                                        }
-                                    )
-                                }
-                        },
-                        onResult = { map ->
-                            permissionsToRequest.forEach { permission ->
-                                viewModel.sendEvent(
-                                    ActivityEvent.OnPermissionResultEvent(
-                                        permission = PermissionsEnum.getPermissionByValue(permission),
-                                        isGranted = map[permission].orDefault(false)
-                                    )
-                                )
-                            }
-                        }
-                    )
-
-                    //In case of single permission
-//                    BuildSinglePermissionActivityContract(
+//                    BuildMultiplePermissionsActivityContract(
 //                        onPermissionLauncher = { activityContract ->
-//                            activityResultContract = activityContract
+//                            activityResultContractForMultiplePermissions = activityContract
 //                            SideEffect {
 //                                if (activityState.needRequestPermission) {
-//                                    activityContract.launch(PermissionsEnum.NOTIFICATION.permission)
+//                                    activityContract.launch(permissionsToRequest)
 //                                }
 //                            }
 //                            dialogQueue
@@ -123,7 +76,7 @@ class MainActivity : ComponentActivity() {
 //                                .forEach { permission ->
 //                                    PermissionDialog(
 //                                        permissionTextProvider = PermissionTextProvider.getPermissionTextProvider(
-//                                            PermissionsEnum.NOTIFICATION
+//                                            permission
 //                                        ),
 //                                        // You can relay on shouldShowRequestPermissionRationale if before showing the dialog
 //                                        // the permission has been requested at least once
@@ -135,7 +88,7 @@ class MainActivity : ComponentActivity() {
 //                                        },
 //                                        onOkClick = {
 //                                            viewModel.dismissPermissionDialog()
-//                                            activityContract.launch(PermissionsEnum.NOTIFICATION.permission)
+//                                            activityContract.launch(permissionsToRequest)
 //                                        },
 //                                        onGoToAppSettingsClick = {
 //                                            openAppSettings()
@@ -144,15 +97,62 @@ class MainActivity : ComponentActivity() {
 //                                    )
 //                                }
 //                        },
-//                        onResult = { isGranted ->
-//                            viewModel.sendEvent(
-//                                ActivityEvent.OnPermissionResultEvent(
-//                                    permission = PermissionsEnum.NOTIFICATION,
-//                                    isGranted = isGranted
+//                        onResult = { map ->
+//                            permissionsToRequest.forEach { permission ->
+//                                viewModel.sendEvent(
+//                                    ActivityEvent.OnPermissionResultEvent(
+//                                        permission = PermissionsEnum.getPermissionByValue(permission),
+//                                        isGranted = map[permission].orDefault(false)
+//                                    )
 //                                )
-//                            )
+//                            }
 //                        }
 //                    )
+
+                    //In case of single permission
+                    BuildSinglePermissionActivityContract(
+                        onPermissionLauncher = { activityContract ->
+                            activityResultContract = activityContract
+                            SideEffect {
+                                if (activityState.needRequestPermission) {
+                                    activityContract.launch(PermissionsEnum.NOTIFICATION.permission)
+                                }
+                            }
+                            dialogQueue
+                                .reversed()
+                                .forEach { permission ->
+                                    PermissionDialog(
+                                        permissionTextProvider = PermissionTextProvider.getPermissionTextProvider(
+                                            PermissionsEnum.NOTIFICATION
+                                        ),
+                                        // You can relay on shouldShowRequestPermissionRationale if before showing the dialog
+                                        // the permission has been requested at least once
+                                        isPermanentlyDeclined = !shouldShowRequestPermissionRationale(
+                                            permission.permission
+                                        ),
+                                        onDismiss = {
+                                            viewModel.sendEvent(ActivityEvent.DismissPermissionDialogEvent)
+                                        },
+                                        onOkClick = {
+                                            viewModel.dismissPermissionDialog()
+                                            activityContract.launch(PermissionsEnum.NOTIFICATION.permission)
+                                        },
+                                        onGoToAppSettingsClick = {
+                                            openAppSettings()
+                                            viewModel.dismissPermissionDialog()
+                                        }
+                                    )
+                                }
+                        },
+                        onResult = { isGranted ->
+                            viewModel.sendEvent(
+                                ActivityEvent.OnPermissionResultEvent(
+                                    permission = PermissionsEnum.NOTIFICATION,
+                                    isGranted = isGranted
+                                )
+                            )
+                        }
+                    )
 
                     LaunchedEffect(key1 = true) {
                         viewModel.uiEvent.collect {
@@ -202,6 +202,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onStart() {
         super.onStart()
-        activityResultContractForMultiplePermissions?.launch(permissionsToRequest)
+        activityResultContract?.launch(PermissionsEnum.NOTIFICATION.permission)
+        //activityResultContractForMultiplePermissions?.launch(permissionsToRequest)
     }
 }
