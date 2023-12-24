@@ -43,28 +43,27 @@ fun NoteScreen(
             ScreenHeader(title = stringResource(id = R.string.notes))
             if (noteState.categorizedItems.isEmpty()) {
                 EmptyScreenPlaceHolder(message = R.string.empty_note_message)
-            } else {
-                ItemsGrid(
-                    categorizedItems = noteState.categorizedItems,
-                    onItemClick = {
-                        viewModel.sendItemEvent(ItemEvent.ItemClickEvent(it))
-                    },
-                    onDeleteClick = {
-                        viewModel.sendItemEvent(ItemEvent.ItemDeleteClickEvent(it))
-                    }
-                )
-                if (noteState.showCreateNoteDialog) {
-                    CreateEditItemDialog(
-                        itemDialogType = ItemDialogType.NoteDialog,
-                        onCreateClick = {
-                            viewModel.sendEvent(NoteEvent.DialogCreateClickEvent(it))
-                        },
-                        onCancelClick = {
-                            viewModel.sendEvent(NoteEvent.DialogCancelClickEvent)
-                        },
-                        defaultDialogData = noteState.dialogItemData
-                    )
+            }
+            ItemsGrid(
+                categorizedItems = noteState.categorizedItems,
+                onItemClick = {
+                    viewModel.sendItemEvent(ItemEvent.ItemClickEvent(it))
+                },
+                onDeleteClick = {
+                    viewModel.sendItemEvent(ItemEvent.ItemDeleteClickEvent(it))
                 }
+            )
+            if (noteState.showCreateNoteDialog) {
+                CreateEditItemDialog(
+                    itemDialogType = ItemDialogType.NoteDialog,
+                    onCreateClick = {
+                        viewModel.sendEvent(NoteEvent.DialogCreateClickEvent(it))
+                    },
+                    onCancelClick = {
+                        viewModel.sendEvent(NoteEvent.DialogCancelClickEvent)
+                    },
+                    defaultDialogData = noteState.dialogItemData
+                )
             }
         }
     }

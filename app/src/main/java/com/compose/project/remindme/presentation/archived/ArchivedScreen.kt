@@ -27,16 +27,15 @@ fun ArchivedScreen(
         ScreenHeader(title = stringResource(id = R.string.archived))
         if (archivedState.categorizedItems.isEmpty()) {
             EmptyScreenPlaceHolder(message = R.string.empty_completed_message)
-        } else {
-            ItemsGrid(
-                categorizedItems = archivedState.categorizedItems,
-                onItemClick = {
-                    viewModel.sendItemEvent(ItemEvent.ItemClickEvent(it))
-                },
-                onDeleteClick = {
-                    viewModel.sendItemEvent(ItemEvent.ItemDeleteClickEvent(it))
-                }
-            )
         }
+        ItemsGrid(
+            categorizedItems = archivedState.categorizedItems,
+            onItemClick = {
+                viewModel.sendItemEvent(ItemEvent.ItemClickEvent(it))
+            },
+            onDeleteClick = {
+                viewModel.sendItemEvent(ItemEvent.ItemDeleteClickEvent(it))
+            }
+        )
     }
 }

@@ -43,28 +43,27 @@ fun ReminderScreen(
             ScreenHeader(title = stringResource(id = R.string.reminder))
             if (reminderState.categorizedItems.isEmpty()) {
                 EmptyScreenPlaceHolder(message = R.string.empty_reminder_message)
-            } else {
-                ItemsGrid(
-                    categorizedItems = reminderState.categorizedItems,
-                    onItemClick = {
-                        viewModel.sendItemEvent(ItemEvent.ItemClickEvent(it))
-                    },
-                    onDeleteClick = {
-                        viewModel.sendItemEvent(ItemEvent.ItemDeleteClickEvent(it))
-                    }
-                )
-                if (reminderState.showCreateNoteDialog) {
-                    CreateEditItemDialog(
-                        itemDialogType = ItemDialogType.ReminderDialog,
-                        onCreateClick = {
-                            viewModel.sendEvent(ReminderEvent.DialogCreateClickEvent(it))
-                        },
-                        onCancelClick = {
-                            viewModel.sendEvent(ReminderEvent.DialogCancelClickEvent)
-                        },
-                        defaultDialogData = reminderState.dialogItemData
-                    )
+            }
+            ItemsGrid(
+                categorizedItems = reminderState.categorizedItems,
+                onItemClick = {
+                    viewModel.sendItemEvent(ItemEvent.ItemClickEvent(it))
+                },
+                onDeleteClick = {
+                    viewModel.sendItemEvent(ItemEvent.ItemDeleteClickEvent(it))
                 }
+            )
+            if (reminderState.showCreateNoteDialog) {
+                CreateEditItemDialog(
+                    itemDialogType = ItemDialogType.ReminderDialog,
+                    onCreateClick = {
+                        viewModel.sendEvent(ReminderEvent.DialogCreateClickEvent(it))
+                    },
+                    onCancelClick = {
+                        viewModel.sendEvent(ReminderEvent.DialogCancelClickEvent)
+                    },
+                    defaultDialogData = reminderState.dialogItemData
+                )
             }
         }
     }
