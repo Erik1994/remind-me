@@ -8,9 +8,13 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Timelapse
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -23,7 +27,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.compose.project.remindme.domain.model.ItemData
 import com.compose.project.remindme.domain.model.NoteData
 import com.compose.project.remindme.presentation.component.DateTimeText
-import com.compose.project.remindme.presentation.component.ParseDateText
+import com.compose.project.remindme.core.ui.ParseDateText
 import com.compose.project.remindme.presentation.extension.isColorLight
 import com.compose.project.remindme.ui.LocalDimension
 import com.compose.project.remindme.ui.theme.Black
@@ -77,6 +81,15 @@ fun Item(
                     fontWeight = FontWeight.Bold,
                     color = colorOnBackground
                 )
+                if (itemData !is NoteData) {
+                    Icon(
+                        imageVector = if (itemData.isCompleted) {
+                            Icons.Filled.CheckCircle
+                        } else Icons.Default.Timelapse,
+                        contentDescription = "",
+                        tint = colorOnBackground
+                    )
+                }
                 Icon(
                     modifier = Modifier.clickable {
                         onDeleteClick(itemData)
@@ -114,7 +127,7 @@ fun NoteItemPreview() {
                 description = "Some note to use later",
                 localDate = LocalDateTime.now()
             ),
-            onDeleteClick = {  },
+            onDeleteClick = { },
             onItemClick = { }
         )
     }

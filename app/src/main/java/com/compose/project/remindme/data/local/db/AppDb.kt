@@ -11,7 +11,7 @@ import com.compose.project.remindme.data.local.db.entity.ReminderEntity
 
 @Database(
     entities = [NoteEntity::class, ReminderEntity::class, ArchivedEntity::class],
-    version = 2
+    version = 3
 )
 abstract class AppDb : RoomDatabase() {
     abstract val noteDao: NoteDao

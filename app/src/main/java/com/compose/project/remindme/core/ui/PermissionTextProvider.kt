@@ -3,16 +3,27 @@ package com.compose.project.remindme.core.ui
 import com.compose.project.remindme.R
 import com.compose.project.remindme.core.ui.enums.PermissionsEnum
 
-sealed class PermissionTextProvider(val title: UiText) {
+sealed class PermissionTextProvider(val title: UiText = UiText.StringResource(R.string.permission_required)) {
     abstract fun getDescription(isPermanentlyDeclined: Boolean): UiText
 
     class NotificationPermissionTextProvider :
-        PermissionTextProvider(UiText.StringResource(R.string.permission_required)) {
+        PermissionTextProvider() {
         override fun getDescription(isPermanentlyDeclined: Boolean): UiText {
             return if (isPermanentlyDeclined) {
-                UiText.StringResource(R.string.permanently_declined_permission_message)
+                UiText.StringResource(R.string.permanently_declined_notification_permission_message)
             } else {
                 UiText.StringResource(R.string.permanently_not_declined_notification_permission_message)
+            }
+        }
+    }
+
+    class ExactAlarmPermissionTextProvider :
+        PermissionTextProvider() {
+        override fun getDescription(isPermanentlyDeclined: Boolean): UiText {
+            return if (isPermanentlyDeclined) {
+                UiText.StringResource(R.string.permanently_declined_exact_alarm_permission_message)
+            } else {
+                UiText.StringResource(R.string.permanently_not_declined_exact_alarm_permission_message)
             }
         }
     }
@@ -25,6 +36,7 @@ sealed class PermissionTextProvider(val title: UiText) {
         override fun getPermissionTextProvider(permissionsEnum: PermissionsEnum): PermissionTextProvider {
             return when (permissionsEnum) {
                 PermissionsEnum.NOTIFICATION -> NotificationPermissionTextProvider()
+                PermissionsEnum.EXACT_ALARM -> ExactAlarmPermissionTextProvider()
             }
         }
     }

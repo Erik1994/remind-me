@@ -12,11 +12,17 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface ReminderDao {
 
+    @Query("SELECT * FROM ${LocalDataConstants.REMINDER_TABLE} ORDER BY month ASC, dayOfMonth ASC, minute ASC")
+    fun getAllOrderedReminderEntities(): Flow<List<ReminderEntity>>
+
     @Query("SELECT * FROM ${LocalDataConstants.REMINDER_TABLE}")
-    fun getAllReminderEntities(): Flow<List<ReminderEntity>>
+    suspend fun getAllReminderEntities(): List<ReminderEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertReminderEntity(entity: ReminderEntity)
+
+    @Query("SELECT * FROM ${LocalDataConstants.REMINDER_TABLE} WHERE id = :id")
+    suspend fun getReminderEntityById(id: Int): ReminderEntity?
 
     @Delete
     suspend fun deleteReminderEntity(entity: ReminderEntity)

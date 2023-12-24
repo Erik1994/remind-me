@@ -4,5 +4,5 @@ import com.compose.project.remindme.domain.model.ArchivedData
 import kotlinx.coroutines.flow.Flow
 
 interface GetAllArchivedDataUseCase {
-    suspend operator fun invoke(): Flow<List<ArchivedData>>
+    operator fun invoke(): Flow<List<ArchivedData>>
 }

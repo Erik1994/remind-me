@@ -1,5 +1,9 @@
 package com.compose.project.remindme.domain.di
 
+import com.compose.project.remindme.domain.ArchivedDataToCategorizedUseCase
+import com.compose.project.remindme.domain.ArchivedDataToCategorizedUseCaseImpl
+import com.compose.project.remindme.domain.CancelScheduledReminderUseCase
+import com.compose.project.remindme.domain.CancelScheduledReminderUseCaseImpl
 import com.compose.project.remindme.domain.DeleteArchivedDataUseCase
 import com.compose.project.remindme.domain.DeleteArchivedDataUseCaseImpl
 import com.compose.project.remindme.domain.DeleteNoteDataUseCase
@@ -18,6 +22,12 @@ import com.compose.project.remindme.domain.InsertNoteDataUseCase
 import com.compose.project.remindme.domain.InsertNoteDataUseCaseImpl
 import com.compose.project.remindme.domain.InsertReminderDataUseCase
 import com.compose.project.remindme.domain.InsertReminderDataUseCaseImpl
+import com.compose.project.remindme.domain.NoteDataToCategorizedUseCase
+import com.compose.project.remindme.domain.NoteDataToCategorizedUseCaseImpl
+import com.compose.project.remindme.domain.ReminderDataToCategorizedUseCase
+import com.compose.project.remindme.domain.ReminderDataToCategorizedUseCaseImpl
+import com.compose.project.remindme.domain.ScheduleReminderUseCase
+import com.compose.project.remindme.domain.ScheduleReminderUseCaseImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -63,5 +73,25 @@ abstract class DomainModule {
     @Binds
     @ViewModelScoped
     abstract fun provideGetAllReminderDataUseCase(getAllReminderDataUseCaseImpl: GetAllReminderDataUseCaseImpl): GetAllReminderDataUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun provideScheduleReminderUseCase(scheduleReminderUseCaseImpl: ScheduleReminderUseCaseImpl): ScheduleReminderUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun provideCancelScheduledReminderUseCase(cancelScheduledReminderUseCaseImpl: CancelScheduledReminderUseCaseImpl): CancelScheduledReminderUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun provideNoteDataToCategorizedUseCase(noteDataToCategorizedUseCaseImpl: NoteDataToCategorizedUseCaseImpl): NoteDataToCategorizedUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun provideReminderDataToCategorizedUseCase(reminderDataToCategorizedUseCaseImpl: ReminderDataToCategorizedUseCaseImpl): ReminderDataToCategorizedUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun provideArchivedDataToCategorizedUseCase(archivedDataToCategorizedUseCaseImpl: ArchivedDataToCategorizedUseCaseImpl): ArchivedDataToCategorizedUseCase
 
 }

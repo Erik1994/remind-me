@@ -1,4 +1,4 @@
-package com.compose.project.remindme.presentation.component
+package com.compose.project.remindme.core.ui
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource

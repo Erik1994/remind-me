@@ -16,15 +16,31 @@ class ReminderDataRepositoryImpl(
     private val entityToDataMapper: Mapper<ReminderEntity, ReminderData>
 ) : ReminderDataRepository {
 
-    override fun getAllReminderEntities(): Flow<List<ReminderData>> {
-        return reminderDao.getAllReminderEntities().map { reminderEntities ->
+    override fun getAllOrderedReminderEntities(): Flow<List<ReminderData>> {
+        return reminderDao.getAllOrderedReminderEntities().map { reminderEntities ->
             reminderEntities.map { entityToDataMapper.map(it) }
+        }
+    }
+
+    override suspend fun getAllReminderEntities(): List<ReminderData> {
+        return withContext(ioDispatcher) {
+            reminderDao.getAllReminderEntities().map {
+                entityToDataMapper.map(it)
+            }
         }
     }
 
     override suspend fun insertReminderEntity(data: ReminderData) {
         withContext(ioDispatcher) {
             reminderDao.insertReminderEntity(dataToEntityMapper.map(data))
+        }
+    }
+
+    override suspend fun getReminderEntityById(id: Int): ReminderData? {
+        return withContext(ioDispatcher) {
+            reminderDao.getReminderEntityById(id)?.let {
+                entityToDataMapper.map(it)
+            }
         }
     }
 

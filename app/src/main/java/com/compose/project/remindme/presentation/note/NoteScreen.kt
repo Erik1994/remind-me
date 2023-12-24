@@ -12,6 +12,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.compose.project.remindme.R
 import com.compose.project.remindme.presentation.component.AddButton
+import com.compose.project.remindme.presentation.component.EmptyScreenPlaceHolder
 import com.compose.project.remindme.presentation.component.ScreenHeader
 import com.compose.project.remindme.presentation.component.item.ItemEvent
 import com.compose.project.remindme.presentation.component.item.ItemsGrid
@@ -40,26 +41,30 @@ fun NoteScreen(
                 .fillMaxSize()
         ) {
             ScreenHeader(title = stringResource(id = R.string.notes))
-            ItemsGrid(
-                notes = noteState.itemState.items,
-                onItemClick = {
-                   viewModel.sendItemEvent(ItemEvent.ItemClickEvent(it))
-                },
-                onDeleteClick = {
-                    viewModel.sendItemEvent(ItemEvent.ItemDeleteClickEvent(it))
-                }
-            )
-            if (noteState.showCreateNoteDialog) {
-                CreateEditItemDialog(
-                    itemDialogType = ItemDialogType.NoteDialog,
-                    onCreateClick = {
-                        viewModel.sendEvent(NoteEvent.DialogCreateClickEvent(it))
+            if (noteState.categorizedItems.isEmpty()) {
+                EmptyScreenPlaceHolder(message = R.string.empty_note_message)
+            } else {
+                ItemsGrid(
+                    categorizedItems = noteState.categorizedItems,
+                    onItemClick = {
+                        viewModel.sendItemEvent(ItemEvent.ItemClickEvent(it))
                     },
-                    onCancelClick = {
-                        viewModel.sendEvent(NoteEvent.DialogCancelClickEvent)
-                    },
-                    defaultDialogData = noteState.dialogItemData
+                    onDeleteClick = {
+                        viewModel.sendItemEvent(ItemEvent.ItemDeleteClickEvent(it))
+                    }
                 )
+                if (noteState.showCreateNoteDialog) {
+                    CreateEditItemDialog(
+                        itemDialogType = ItemDialogType.NoteDialog,
+                        onCreateClick = {
+                            viewModel.sendEvent(NoteEvent.DialogCreateClickEvent(it))
+                        },
+                        onCancelClick = {
+                            viewModel.sendEvent(NoteEvent.DialogCancelClickEvent)
+                        },
+                        defaultDialogData = noteState.dialogItemData
+                    )
+                }
             }
         }
     }

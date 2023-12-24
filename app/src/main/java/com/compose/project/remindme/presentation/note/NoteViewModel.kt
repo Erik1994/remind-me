@@ -9,9 +9,11 @@ import com.compose.project.remindme.data.mapper.ITEM_DATA_TO_DIALOG_ITEM_MAPPER
 import com.compose.project.remindme.domain.DeleteNoteDataUseCase
 import com.compose.project.remindme.domain.GetAllNoteDataUseCase
 import com.compose.project.remindme.domain.InsertNoteDataUseCase
+import com.compose.project.remindme.domain.NoteDataToCategorizedUseCase
 import com.compose.project.remindme.domain.model.ItemData
 import com.compose.project.remindme.domain.model.NoteData
 import com.compose.project.remindme.presentation.common.ScreenBaseViewModel
+import com.compose.project.remindme.domain.model.Category
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -22,7 +24,8 @@ import javax.inject.Inject
 class NoteViewModel @Inject constructor(
     private val insertNoteDataUseCase: InsertNoteDataUseCase,
     private val deleteNoteDataUseCase: DeleteNoteDataUseCase,
-    private val getAllNoteDataUseCase: GetAllNoteDataUseCase
+    private val getAllNoteDataUseCase: GetAllNoteDataUseCase,
+    private val noteDataToCategorizedUseCase: NoteDataToCategorizedUseCase
 ) : ScreenBaseViewModel() {
     var noteState: NoteState by mutableStateOf(NoteState())
         private set
@@ -92,9 +95,7 @@ class NoteViewModel @Inject constructor(
         getAllNoteDataUseCase()
             .onEach {
                 noteState = noteState.copy(
-                    itemState = noteState.itemState.copy(
-                        items = it
-                    )
+                    categorizedItems = noteDataToCategorizedUseCase(it)
                 )
             }.launchIn(viewModelScope)
     }

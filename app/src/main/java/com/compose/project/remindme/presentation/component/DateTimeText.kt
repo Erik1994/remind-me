@@ -26,7 +26,7 @@ fun DateTimeText(
     modifier: Modifier = Modifier,
     dateTime: String,
     backGroundColor: Color,
-    borderWidth: Dp = 1.dp,
+    borderWidth: Dp = 1.5.dp,
     style: TextStyle = MaterialTheme.typography.headlineSmall,
 ) {
     val dimensions = LocalDimension.current

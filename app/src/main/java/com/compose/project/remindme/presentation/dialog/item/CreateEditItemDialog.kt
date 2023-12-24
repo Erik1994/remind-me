@@ -32,7 +32,7 @@ import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.compose.project.remindme.R
 import com.compose.project.remindme.presentation.component.DateTimePicker
-import com.compose.project.remindme.presentation.component.ParseDateText
+import com.compose.project.remindme.core.ui.ParseDateText
 import com.compose.project.remindme.presentation.component.color.ColorItemData
 import com.compose.project.remindme.presentation.component.color.ColorItemList
 import com.compose.project.remindme.presentation.component.color.ColorItemsHorizontalList

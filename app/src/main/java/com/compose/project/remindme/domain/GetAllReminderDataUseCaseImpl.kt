@@ -8,7 +8,7 @@ import javax.inject.Inject
 class GetAllReminderDataUseCaseImpl @Inject constructor(
     private val reminderDataRepository: ReminderDataRepository
 ) : GetAllReminderDataUseCase {
-    override suspend fun invoke(): Flow<List<ReminderData>> {
-        return reminderDataRepository.getAllReminderEntities()
+    override fun invoke(): Flow<List<ReminderData>> {
+        return reminderDataRepository.getAllOrderedReminderEntities()
     }
 }

@@ -129,7 +129,7 @@ fun DateTimePicker(
     ) {
         timepicker(
             is24HourClock = true,
-            initialTime = LocalTime.NOON,
+            initialTime = LocalTime.now(),
             title = stringResource(id = R.string.time_picker),
             colors = object : TimePickerColors {
                 override val border: BorderStroke
