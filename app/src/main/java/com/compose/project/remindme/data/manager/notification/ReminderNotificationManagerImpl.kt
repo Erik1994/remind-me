@@ -30,6 +30,7 @@ class ReminderNotificationManagerImpl(
             .setSmallIcon(R.drawable.reminder_icon)
             .setContentTitle(title)
             .setContentText(description)
+            .setAutoCancel(true)
             .setContentIntent(activityPendingIntent)
             .build()
 
