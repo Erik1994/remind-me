@@ -36,6 +36,17 @@ class ActivityViewModel @Inject constructor() : BaseViewModel() {
                 activityState = activityState.copy(needRequestPermission = true)
                 dismissPermissionDialog()
             }
+
+            is ActivityEvent.ReminderNotificationClickEvent -> {
+                activityState = activityState.copy(
+                    defaultRoute = activityEvent.route,
+                    bottomNavigationItemList = activityState.bottomNavigationItemList.map {
+                        it.copy(
+                            isSelected = it.route == activityEvent.route
+                        )
+                    }
+                )
+            }
         }
     }
 }

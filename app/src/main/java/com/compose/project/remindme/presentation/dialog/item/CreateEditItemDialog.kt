@@ -193,6 +193,7 @@ fun CreateEditItemDialog(
         }
         if (itemDialogState.needShowDateTimePicker) {
             DateTimePicker(
+                defaultDateTime = itemDialogState.dateTime,
                 onDateTimeSelect = {
                     viewModel.sendEvent(ItemDialogEvent.DateTimeChangedEvent(it))
                 },

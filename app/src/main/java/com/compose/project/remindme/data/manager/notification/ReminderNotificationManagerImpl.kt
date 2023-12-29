@@ -7,7 +7,10 @@ import android.content.Intent
 import androidx.core.app.NotificationCompat
 import com.compose.project.remindme.R
 import com.compose.project.remindme.activity.MainActivity
+import com.compose.project.remindme.data.manager.notification.ReminderNotificationManager.Companion.ARCHIVED_ROUT_KEY
 import com.compose.project.remindme.data.manager.notification.ReminderNotificationManager.Companion.REINDER_CHANNEL_ID
+import com.compose.project.remindme.data.manager.notification.ReminderNotificationManager.Companion.REMINDER_NOTIFICATION_CLICK_ACTION
+import com.compose.project.remindme.presentation.navigation.Route
 
 class ReminderNotificationManagerImpl(
     private val context: Context
@@ -19,7 +22,10 @@ class ReminderNotificationManagerImpl(
         title: String,
         description: String
     ) {
-        val activityIntent = Intent(context, MainActivity::class.java)
+        val activityIntent = Intent(context, MainActivity::class.java).apply {
+            action = REMINDER_NOTIFICATION_CLICK_ACTION
+            putExtra(ARCHIVED_ROUT_KEY, Route.ARCHIVED)
+        }
         val activityPendingIntent = PendingIntent.getActivity(
             context,
             1,

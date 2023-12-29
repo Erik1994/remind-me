@@ -29,6 +29,7 @@ import java.time.LocalTime
 
 @Composable
 fun DateTimePicker(
+    defaultDateTime: LocalDateTime,
     onDateTimeSelect: (LocalDateTime) -> Unit,
     onCancelClick: () -> Unit
 ) {
@@ -66,7 +67,7 @@ fun DateTimePicker(
         }
     ) {
         datepicker(
-            initialDate = LocalDate.now(),
+            initialDate = defaultDateTime.toLocalDate(),
             title = stringResource(id = R.string.date_picker),
             allowedDateValidator = {
                 it.dayOfMonth >= LocalDate.now().dayOfMonth
@@ -129,7 +130,7 @@ fun DateTimePicker(
     ) {
         timepicker(
             is24HourClock = true,
-            initialTime = LocalTime.now(),
+            initialTime = defaultDateTime.toLocalTime(),
             title = stringResource(id = R.string.time_picker),
             colors = object : TimePickerColors {
                 override val border: BorderStroke

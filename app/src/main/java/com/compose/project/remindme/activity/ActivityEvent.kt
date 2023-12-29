@@ -11,4 +11,6 @@ sealed class ActivityEvent {
 
     data class OnPermissionResultEvent(val permission: PermissionsEnum, val isGranted: Boolean) :
         ActivityEvent()
+
+    data class ReminderNotificationClickEvent(val route: String) : ActivityEvent()
 }
