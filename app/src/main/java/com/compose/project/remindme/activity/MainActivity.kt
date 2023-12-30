@@ -1,8 +1,6 @@
 package com.compose.project.remindme.activity
 
-import android.Manifest
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.ManagedActivityResultLauncher
@@ -15,7 +13,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -24,15 +21,15 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.compose.project.remindme.presentation.archived.ArchivedScreen
-import com.compose.project.remindme.presentation.component.BuildSinglePermissionActivityContract
-import com.compose.project.remindme.presentation.dialog.permission.PermissionDialog
+import com.compose.project.remindme.core.ui.ObserveAsEventsWithSuspendBlock
 import com.compose.project.remindme.core.ui.PermissionTextProvider
 import com.compose.project.remindme.core.ui.enums.PermissionsEnum
 import com.compose.project.remindme.core.util.orDefault
 import com.compose.project.remindme.data.manager.notification.ReminderNotificationManager
 import com.compose.project.remindme.data.manager.notification.ReminderNotificationManager.Companion.ARCHIVED_ROUT_KEY
+import com.compose.project.remindme.presentation.archived.ArchivedScreen
 import com.compose.project.remindme.presentation.component.BuildMultiplePermissionsActivityContract
+import com.compose.project.remindme.presentation.dialog.permission.PermissionDialog
 import com.compose.project.remindme.presentation.event.UiEvent
 import com.compose.project.remindme.presentation.extension.openAppSettings
 import com.compose.project.remindme.presentation.navigation.BottomNavigationBar
@@ -170,18 +167,16 @@ class MainActivity : ComponentActivity() {
 //                        }
 //                    )
 
-                    LaunchedEffect(key1 = true) {
-                        viewModel.uiEvent.collect {
-                            when (it) {
-                                is UiEvent.Navigate -> navController.navigate(it.route)
-                                is UiEvent.ShowSnackBar -> snackBarHostState.showSnackbar(
-                                    message = it.message.asString(
-                                        context
-                                    )
+                    ObserveAsEventsWithSuspendBlock(flow = viewModel.uiEvent) {
+                        when (it) {
+                            is UiEvent.Navigate -> navController.navigate(it.route)
+                            is UiEvent.ShowSnackBar -> snackBarHostState.showSnackbar(
+                                message = it.message.asString(
+                                    context
                                 )
+                            )
 
-                                else -> navController.navigateUp()
-                            }
+                            else -> navController.navigateUp()
                         }
                     }
                     Scaffold(

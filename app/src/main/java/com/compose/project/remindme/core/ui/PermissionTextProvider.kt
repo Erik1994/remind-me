@@ -1,5 +1,7 @@
 package com.compose.project.remindme.core.ui
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import com.compose.project.remindme.R
 import com.compose.project.remindme.core.ui.enums.PermissionsEnum
 
@@ -33,6 +35,7 @@ sealed class PermissionTextProvider(val title: UiText = UiText.StringResource(R.
     }
 
     companion object : PermissionTextProviderI {
+        @RequiresApi(Build.VERSION_CODES.TIRAMISU)
         override fun getPermissionTextProvider(permissionsEnum: PermissionsEnum): PermissionTextProvider {
             return when (permissionsEnum) {
                 PermissionsEnum.NOTIFICATION -> NotificationPermissionTextProvider()
