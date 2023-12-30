@@ -5,7 +5,9 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.repeatOnLifecycle
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.withContext
 
 
 @Composable
@@ -13,7 +15,9 @@ fun <T> ObserveAsEvents(flow: Flow<T>, onEvent: (T) -> Unit) {
     val lifecycleOwner = LocalLifecycleOwner.current
     LaunchedEffect(key1 = flow, key2 = lifecycleOwner.lifecycle) {
         lifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-            flow.collect(onEvent)
+            withContext(Dispatchers.Main.immediate) {
+                flow.collect(onEvent)
+            }
         }
     }
 }
@@ -23,7 +27,10 @@ fun <T> ObserveAsEventsWithSuspendBlock(flow: Flow<T>, onEvent: suspend (T) -> U
     val lifecycleOwner = LocalLifecycleOwner.current
     LaunchedEffect(key1 = flow, key2 = lifecycleOwner.lifecycle) {
         lifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-            flow.collect(onEvent)
+            //Using withContext(Dispatchers.Main.immediate) not to loose any event during rotation
+            withContext(Dispatchers.Main.immediate) {
+                flow.collect(onEvent)
+            }
         }
     }
 }
