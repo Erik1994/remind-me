@@ -26,6 +26,7 @@ import com.vanpra.composematerialdialogs.rememberMaterialDialogState
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
+import java.time.ZoneId
 
 @Composable
 fun DateTimePicker(
@@ -70,7 +71,7 @@ fun DateTimePicker(
             initialDate = defaultDateTime.toLocalDate(),
             title = stringResource(id = R.string.date_picker),
             allowedDateValidator = {
-                it.dayOfMonth >= LocalDate.now().dayOfMonth
+                it.isAfter(LocalDate.now())
             },
             colors = object : DatePickerColors {
                 override val calendarHeaderTextColor: Color

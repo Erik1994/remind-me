@@ -125,17 +125,10 @@ fun Item(
             )
             Spacer(modifier = Modifier.height(dimensions.spaceMedium))
             if (itemData !is NoteData && !itemData.isCompleted) {
-                AnimatedBorderCard(
-                    gradient = Brush.sweepGradient(
-                        listOf(animationColor, itemData.color)
-                    ),
-                    shape = MaterialTheme.shapes.extraSmall
-                ) {
-                    DateTimeText(
-                        dateTime = ParseDateText(dateTime = itemData.localDate),
-                        backGroundColor = itemData.color
-                    )
-                }
+                DateTimeText(
+                    dateTime = ParseDateText(dateTime = itemData.localDate),
+                    backGroundColor = itemData.color
+                )
             } else {
                 DateTimeText(
                     dateTime = ParseDateText(dateTime = itemData.localDate),
