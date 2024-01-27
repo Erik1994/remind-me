@@ -71,7 +71,7 @@ fun DateTimePicker(
             initialDate = defaultDateTime.toLocalDate(),
             title = stringResource(id = R.string.date_picker),
             allowedDateValidator = {
-                it.isAfter(LocalDate.now())
+                it.isEqual(LocalDate.now()) || it.isAfter(LocalDate.now())
             },
             colors = object : DatePickerColors {
                 override val calendarHeaderTextColor: Color
