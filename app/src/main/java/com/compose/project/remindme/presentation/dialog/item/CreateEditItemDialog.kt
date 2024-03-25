@@ -169,7 +169,13 @@ fun CreateEditItemDialog(
                         horizontalArrangement = Arrangement.Start
                     ) {
                         Text(
-                            text = stringResource(id = R.string.lock),
+                            text = stringResource(
+                                id = if (itemDialogState.isLockSwitchChecked) {
+                                    R.string.unlock
+                                } else {
+                                    R.string.lock
+                                }
+                            ),
                             style = MaterialTheme.typography.bodyLarge,
                             textAlign = TextAlign.Start
                         )
