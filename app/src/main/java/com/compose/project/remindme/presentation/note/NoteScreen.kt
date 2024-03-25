@@ -1,5 +1,8 @@
 package com.compose.project.remindme.presentation.note
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -8,6 +11,7 @@ import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -76,7 +80,10 @@ fun NoteScreen(
                     }
                 }
             )
-            if (noteState.showCreateNoteDialog) {
+            AnimatedVisibility(
+                visible = noteState.showCreateNoteDialog,
+                exit = fadeOut() + shrinkVertically(shrinkTowards = Alignment.Top)
+            ) {
                 CreateEditItemDialog(
                     itemDialogType = ItemDialogType.NoteDialog,
                     onCreateClick = {

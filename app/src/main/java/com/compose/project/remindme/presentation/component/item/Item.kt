@@ -1,5 +1,6 @@
 package com.compose.project.remindme.presentation.component.item
 
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -36,6 +37,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.compose.project.remindme.R
 import com.compose.project.remindme.core.ui.ParseDateText
@@ -87,127 +89,193 @@ fun Item(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
-            Text(
-                text = stringResource(
-                    id = if (itemData.isLocked) {
-                        R.string.unlock
-                    } else {
-                        R.string.lock
-                    }
-                ),
-                color = colorOnBackground,
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold
-            )
-            Spacer(modifier = Modifier.width(dimensions.spaceExtraSmall))
-            Icon(
-                modifier = Modifier,
-                imageVector = if (itemData.isLocked) {
-                    Icons.Rounded.LockOpen
-                } else {
-                    Icons.Rounded.Lock
-                },
-                contentDescription = "",
-                tint = colorOnBackground
-            )
-        }
-
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentHeight()
-                .background(
-                    color = itemData.color,
-                    shape = MaterialTheme.shapes.small
-                )
-                .padding(dimensions.spaceSmall)
-                .blur(
-                    radius = if (itemData.isLocked) {
-                        5.dp
-                    } else {
-                        0.dp
-                    },
-                    edgeTreatment = BlurredEdgeTreatment.Rectangle
-                )
-                .clickable {
-                    if (!itemData.isLocked) {
-                        onItemClick(itemData)
-                    }
-                },
-            shape = MaterialTheme.shapes.small
-        ) {
-            Column(
-                modifier = Modifier
-                    .background(
-                        color = itemData.color,
-                        shape = MaterialTheme.shapes.small
-                    )
-                    .fillMaxWidth()
-                    .padding(dimensions.spaceSmall)
-            ) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                ) {
+            AnimatedContent(targetState = itemData.isLocked, label = "") { isLocked ->
+                if (isLocked) {
                     Text(
-                        modifier = Modifier
-                            .weight(1f),
-                        text = itemData.title,
-                        style = MaterialTheme.typography.headlineLarge,
-                        fontWeight = FontWeight.Bold,
-                        color = colorOnBackground
+                        text = stringResource(R.string.unlock),
+                        color = colorOnBackground,
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold
                     )
-                    if (itemData !is NoteData) {
-                        if (itemData.isCompleted) {
-                            Icon(
-                                Icons.Filled.CheckCircle,
-                                contentDescription = "",
-                                tint = colorOnBackground
-                            )
-                        } else {
-                            AnimatedBorderCard(
-                                gradient = Brush.sweepGradient(
-                                    listOf(animationColor, itemData.color)
-                                ),
-                                color = itemData.color
-                            ) {
-                                Icon(
-                                    Icons.Default.Timelapse,
-                                    contentDescription = "",
-                                    tint = colorOnBackground
-                                )
-                            }
-                        }
-                    }
+                } else {
+                    Text(
+                        text = stringResource(R.string.lock),
+                        color = colorOnBackground,
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+            }
+            Spacer(modifier = Modifier.width(dimensions.spaceExtraSmall))
+            AnimatedContent(targetState = itemData.isLocked, label = "") { isLocked ->
+                if (isLocked) {
                     Icon(
-                        modifier = Modifier.clickable {
-                            onDeleteClick(itemData)
-                        },
-                        imageVector = Icons.Filled.Delete,
+                        modifier = Modifier,
+                        imageVector = Icons.Rounded.LockOpen,
+                        contentDescription = "",
+                        tint = colorOnBackground
+                    )
+                } else {
+                    Icon(
+                        modifier = Modifier,
+                        imageVector = Icons.Rounded.Lock,
                         contentDescription = "",
                         tint = colorOnBackground
                     )
                 }
-                Spacer(modifier = Modifier.height(dimensions.spaceMedium))
+            }
+            if (itemData !is NoteData && !itemData.isCompleted) {
+                Spacer(modifier = Modifier.width(dimensions.spaceExtraSmall))
+                AnimatedContent(targetState = itemData.isLocked, label = "") { locked ->
+                    if (locked) {
+                        AnimatedBorderCard(
+                            gradient = Brush.sweepGradient(
+                                listOf(animationColor, itemData.color)
+                            ),
+                            color = itemData.color
+                        ) {
+                            Icon(
+                                Icons.Default.Timelapse,
+                                contentDescription = "",
+                                tint = colorOnBackground
+                            )
+                        }
+                    }
+                }
+            }
+        }
+
+        AnimatedContent(targetState = itemData.isLocked, label = "") { isLocked ->
+            if (isLocked) {
+                ItemCard(
+                    blurRadius = 7.dp,
+                    itemData = itemData,
+                    colorOnBackground = colorOnBackground,
+                    animationColor = animationColor,
+                    onItemClick = onItemClick,
+                    onDeleteClick = onDeleteClick
+                )
+            } else {
+                ItemCard(
+                    itemData = itemData,
+                    colorOnBackground = colorOnBackground,
+                    animationColor = animationColor,
+                    onItemClick = onItemClick,
+                    onDeleteClick = onDeleteClick
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun ItemCard(
+    modifier: Modifier = Modifier,
+    blurRadius: Dp = 0.dp,
+    itemData: ItemData,
+    colorOnBackground: Color,
+    animationColor: Color,
+    onItemClick: (ItemData) -> Unit,
+    onDeleteClick: (ItemData) -> Unit,
+) {
+    val dimensions = LocalDimension.current
+    Card(
+        modifier = modifier
+            .fillMaxWidth()
+            .wrapContentHeight()
+            .background(
+                color = itemData.color,
+                shape = MaterialTheme.shapes.small
+            )
+            .padding(dimensions.spaceSmall)
+            .blur(
+                radius = blurRadius,
+                edgeTreatment = BlurredEdgeTreatment.Rectangle
+            )
+            .clickable {
+                if (!itemData.isLocked) {
+                    onItemClick(itemData)
+                }
+            },
+        shape = MaterialTheme.shapes.small
+    ) {
+        Column(
+            modifier = Modifier
+                .background(
+                    color = itemData.color,
+                    shape = MaterialTheme.shapes.small
+                )
+                .fillMaxWidth()
+                .padding(dimensions.spaceSmall)
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+            ) {
                 Text(
                     modifier = Modifier
-                        .fillMaxWidth(),
-                    text = itemData.description,
-                    style = MaterialTheme.typography.headlineMedium,
+                        .weight(1f),
+                    text = itemData.title,
+                    style = MaterialTheme.typography.headlineLarge,
+                    fontWeight = FontWeight.Bold,
                     color = colorOnBackground
                 )
-                Spacer(modifier = Modifier.height(dimensions.spaceMedium))
-                if (itemData !is NoteData && !itemData.isCompleted) {
-                    DateTimeText(
-                        dateTime = ParseDateText(dateTime = itemData.localDate),
-                        backGroundColor = itemData.color
-                    )
-                } else {
-                    DateTimeText(
-                        dateTime = ParseDateText(dateTime = itemData.localDate),
-                        backGroundColor = itemData.color
-                    )
+                if (itemData !is NoteData) {
+                    if (itemData.isCompleted) {
+                        Icon(
+                            Icons.Filled.CheckCircle,
+                            contentDescription = "",
+                            tint = colorOnBackground
+                        )
+                    } else {
+                        AnimatedContent(targetState = blurRadius, label = "") { radius ->
+                            if (radius == 0.dp) {
+                                AnimatedBorderCard(
+                                    gradient = Brush.sweepGradient(
+                                        listOf(animationColor, itemData.color)
+                                    ),
+                                    color = itemData.color
+                                ) {
+                                    Icon(
+                                        Icons.Default.Timelapse,
+                                        contentDescription = "",
+                                        tint = colorOnBackground
+                                    )
+                                }
+                            }
+                        }
+                    }
                 }
+                Icon(
+                    modifier = Modifier.clickable {
+                        if (!itemData.isLocked) {
+                            onDeleteClick(itemData)
+                        }
+                    },
+                    imageVector = Icons.Filled.Delete,
+                    contentDescription = "",
+                    tint = colorOnBackground
+                )
+            }
+            Spacer(modifier = Modifier.height(dimensions.spaceMedium))
+            Text(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                text = itemData.description,
+                style = MaterialTheme.typography.headlineMedium,
+                color = colorOnBackground
+            )
+            Spacer(modifier = Modifier.height(dimensions.spaceMedium))
+            if (itemData !is NoteData && !itemData.isCompleted) {
+                DateTimeText(
+                    dateTime = ParseDateText(dateTime = itemData.localDate),
+                    backGroundColor = itemData.color
+                )
+            } else {
+                DateTimeText(
+                    dateTime = ParseDateText(dateTime = itemData.localDate),
+                    backGroundColor = itemData.color
+                )
             }
         }
     }

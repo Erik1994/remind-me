@@ -1,5 +1,13 @@
 package com.compose.project.remindme.presentation.reminder
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.VisibilityThreshold
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -8,8 +16,10 @@ import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.IntSize
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.compose.project.remindme.R
 import com.compose.project.remindme.presentation.biometric.BiometricManager
@@ -77,7 +87,10 @@ fun ReminderScreen(
                     }
                 }
             )
-            if (reminderState.showCreateNoteDialog) {
+            AnimatedVisibility(
+                visible = reminderState.showCreateNoteDialog,
+                exit = fadeOut() + shrinkVertically(shrinkTowards = Alignment.Top)
+            ) {
                 CreateEditItemDialog(
                     itemDialogType = ItemDialogType.ReminderDialog,
                     onCreateClick = {

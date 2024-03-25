@@ -1,5 +1,6 @@
 package com.compose.project.remindme.presentation.dialog.item
 
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -168,17 +169,21 @@ fun CreateEditItemDialog(
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.Start
                     ) {
-                        Text(
-                            text = stringResource(
-                                id = if (itemDialogState.isLockSwitchChecked) {
-                                    R.string.unlock
-                                } else {
-                                    R.string.lock
-                                }
-                            ),
-                            style = MaterialTheme.typography.bodyLarge,
-                            textAlign = TextAlign.Start
-                        )
+                        AnimatedContent(targetState = itemDialogState.isLockSwitchChecked, label = "") { isChecked ->
+                           if (isChecked) {
+                               Text(
+                                   text = stringResource(R.string.unlock),
+                                   style = MaterialTheme.typography.bodyLarge,
+                                   textAlign = TextAlign.Start
+                               )
+                           } else {
+                               Text(
+                                   text = stringResource(R.string.lock),
+                                   style = MaterialTheme.typography.bodyLarge,
+                                   textAlign = TextAlign.Start
+                               )
+                           }
+                        }
                         Spacer(modifier = Modifier.width(dimensions.spaceSmall))
                         Switch(
                             checked = itemDialogState.isLockSwitchChecked,

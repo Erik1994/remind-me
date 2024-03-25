@@ -1,5 +1,13 @@
 package com.compose.project.remindme.presentation.component.item
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.expandHorizontally
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkHorizontally
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,6 +20,7 @@ import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -52,12 +61,22 @@ fun ItemsGrid(
                     item.id.orDefault(0)
                 }
             ) { item ->
-                Item(
-                    itemData = item,
-                    onItemClick = onItemClick,
-                    onDeleteClick = onDeleteClick,
-                    onLockClick = onLockClick
-                )
+                val isDeleted = remember { mutableStateOf(false) }
+                AnimatedVisibility(
+                    visible = !isDeleted.value,
+                    enter = expandVertically(),
+                    exit = shrinkVertically(animationSpec = tween(durationMillis = 1000))
+                ) {
+                    Item(
+                        itemData = item,
+                        onItemClick = onItemClick,
+                        onDeleteClick = {
+                            isDeleted.value = true
+                            onDeleteClick(item)
+                        },
+                        onLockClick = onLockClick
+                    )
+                }
             }
         }
     }
