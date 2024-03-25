@@ -47,6 +47,10 @@ class ActivityViewModel @Inject constructor() : BaseViewModel() {
                     }
                 )
             }
+
+            is ActivityEvent.ShowBiometricResultMessageEvent -> {
+                sendUiEvent(UiEvent.ShowSnackBar(activityEvent.biometricResult.resulMessage))
+            }
         }
     }
 }

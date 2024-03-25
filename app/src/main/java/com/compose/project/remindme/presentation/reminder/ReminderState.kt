@@ -8,5 +8,6 @@ data class ReminderState(
     val categorizedItems: List<Category> = emptyList(),
     val showCreateNoteDialog: Boolean = false,
     val dialogItemData: DialogItemData? = null,
-    val selectedReminderId: Int? = null
+    val selectedReminderId: Int? = null,
+    val lockUnlockItemId: Int? = null
 )

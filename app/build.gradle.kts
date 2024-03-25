@@ -64,6 +64,7 @@ dependencies {
     val materialVersion = "1.5.0-alpha04"
     val iconsVersion = "1.5.4"
     val dateTimePickerVersion = "0.8.1-rc"
+    val biometric = "1.1.0"
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
@@ -109,4 +110,7 @@ dependencies {
 
     //date-time picker
     implementation("io.github.vanpra.compose-material-dialogs:datetime:$dateTimePickerVersion")
+
+    //biometric
+    implementation("androidx.biometric:biometric:$biometric")
 }

@@ -18,6 +18,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -64,7 +65,8 @@ fun CreateEditItemDialog(
                         color = itemDialogState.colorItems.first { it.isSelected }.color,
                         itemTitle = itemDialogState.itemTitle,
                         dateTime = itemDialogState.dateTime,
-                        itemDescription = itemDialogState.itemDescription
+                        itemDescription = itemDialogState.itemDescription,
+                        isLocked = itemDialogState.isLockSwitchChecked
                     )
                     viewModel.clearState()
                     onCreateClick(dialogItemData)
@@ -159,6 +161,27 @@ fun CreateEditItemDialog(
                     }
                 }
                 Spacer(modifier = Modifier.height(dimensions.spaceSmall))
+                if (defaultDialogData == null) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Start
+                    ) {
+                        Text(
+                            text = stringResource(id = R.string.lock),
+                            style = MaterialTheme.typography.bodyLarge,
+                            textAlign = TextAlign.Start
+                        )
+                        Spacer(modifier = Modifier.width(dimensions.spaceSmall))
+                        Switch(
+                            checked = itemDialogState.isLockSwitchChecked,
+                            onCheckedChange = {
+                                viewModel.sendEvent(ItemDialogEvent.LockToggleClick)
+                            }
+                        )
+                    }
+                }
                 ColorItemsHorizontalList(
                     colorItems = itemDialogState.colorItems,
                     onColorItemClick = {

@@ -7,6 +7,7 @@ interface ItemData {
     val id: Int?
     val color: Color
     val title: String
+    val isLocked: Boolean
     val description: String
     val localDate: LocalDateTime
     val isCompleted: Boolean

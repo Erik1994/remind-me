@@ -34,4 +34,15 @@
     <string name="empty_note_message">There is not any note to show you!</string>
     <string name="empty_reminder_message">There is not any reminder to remind you!</string>
     <string name="empty_completed_message">There is not any completed reminder to show you!</string>
+    <string name="hardware_unavailable">Hardware is unavailable</string>
+    <string name="feature_unavailable">Feature is unavailable</string>
+    <string name="authentication_failed">Authentication is failed</string>
+    <string name="authentication_succeeded">Authentication is succeeded</string>
+    <string name="authentication_not_set">Authentication is not set</string>
+    <string name="prompt_title">Unlock the content\n</string>
+    <string name="prompt_description">Unlock to be able to view and edit the content</string>
+    <string name="locked">Locked</string>
+    <string name="lock">Lock</string>
+    <string name="unlocked">Unlocked</string>
+    <string name="unlock">Unlock</string>
 </resources>

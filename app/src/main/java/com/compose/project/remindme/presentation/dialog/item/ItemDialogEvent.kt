@@ -6,6 +6,7 @@ import java.time.LocalDateTime
 sealed class ItemDialogEvent {
     object CreateEvent : ItemDialogEvent()
     object DismissEvent : ItemDialogEvent()
+    object LockToggleClick: ItemDialogEvent()
     object DateTimeClickedEvent : ItemDialogEvent()
     object DateTimePickerCancelEvent: ItemDialogEvent()
     data class ColorSelectionChangedEvent(val color: Color) : ItemDialogEvent()

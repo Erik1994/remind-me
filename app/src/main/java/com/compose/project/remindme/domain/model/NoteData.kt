@@ -8,5 +8,6 @@ data class NoteData(
     override val color: Color,
     override val title: String,
     override val description: String,
-    override val localDate: LocalDateTime
+    override val localDate: LocalDateTime,
+    override val isLocked: Boolean = false,
 ) : ItemData

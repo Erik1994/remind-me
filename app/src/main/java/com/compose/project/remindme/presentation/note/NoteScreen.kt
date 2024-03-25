@@ -7,10 +7,12 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.compose.project.remindme.R
+import com.compose.project.remindme.presentation.biometric.BiometricManager
 import com.compose.project.remindme.presentation.component.AddButton
 import com.compose.project.remindme.presentation.component.EmptyScreenPlaceHolder
 import com.compose.project.remindme.presentation.component.ScreenHeader
@@ -23,9 +25,22 @@ import com.compose.project.remindme.presentation.dialog.item.ItemDialogType
 @Composable
 fun NoteScreen(
     modifier: Modifier = Modifier,
-    viewModel: NoteViewModel = hiltViewModel()
+    viewModel: NoteViewModel = hiltViewModel(),
+    biometricResult: BiometricManager.BiometricResult?,
+    onResetState: () -> Unit,
+    onBiometricOpen: () -> Unit
 ) {
     val noteState = viewModel.noteState
+
+    LaunchedEffect(key1 = biometricResult) {
+        if (biometricResult is BiometricManager.BiometricResult.AuthenticationSuccess) {
+            viewModel.toggleItemLockState()
+        } else if (biometricResult != null) {
+            viewModel.resetLockUnlockItemId()
+        }
+        onResetState()
+    }
+
     Scaffold(
         modifier = modifier.fillMaxSize(),
         floatingActionButton = {
@@ -51,6 +66,14 @@ fun NoteScreen(
                 },
                 onDeleteClick = {
                     viewModel.sendItemEvent(ItemEvent.ItemDeleteClickEvent(it))
+                },
+                onLockClick = {
+                    viewModel.sendEvent(NoteEvent.OnLockClickEvent(it.id))
+                    if (it.isLocked) {
+                        onBiometricOpen()
+                    } else {
+                        viewModel.toggleItemLockState()
+                    }
                 }
             )
             if (noteState.showCreateNoteDialog) {

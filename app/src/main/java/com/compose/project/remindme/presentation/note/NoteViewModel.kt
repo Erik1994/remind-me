@@ -13,7 +13,6 @@ import com.compose.project.remindme.domain.NoteDataToCategorizedUseCase
 import com.compose.project.remindme.domain.model.ItemData
 import com.compose.project.remindme.domain.model.NoteData
 import com.compose.project.remindme.presentation.common.ScreenBaseViewModel
-import com.compose.project.remindme.domain.model.Category
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -60,9 +59,34 @@ class NoteViewModel @Inject constructor(
                     selectedNoteId = null
                 )
             }
+
+            is NoteEvent.OnLockClickEvent -> {
+                noteState = noteState.copy(
+                    lockUnlockItemId = noteEvent.id
+                )
+            }
         }
     }
 
+    override fun toggleItemLockState() {
+        noteState.categorizedItems.forEach {
+            val item = it.items.find { item -> item.id == noteState.lockUnlockItemId }
+            item?.let { safeItem ->
+                insertNote((safeItem as NoteData).copy(
+                    isLocked = !safeItem.isLocked
+                ))
+                resetLockUnlockItemId()
+                return@forEach
+            }
+        }
+    }
+
+
+    override fun resetLockUnlockItemId() {
+        noteState = noteState.copy(
+            lockUnlockItemId = null
+        )
+    }
     override fun handleItemClickEvent(itemData: ItemData) {
         noteState = noteState.copy(
             dialogItemData = ITEM_DATA_TO_DIALOG_ITEM_MAPPER.map(itemData),

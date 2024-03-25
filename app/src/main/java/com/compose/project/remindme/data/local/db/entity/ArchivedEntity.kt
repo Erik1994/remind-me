@@ -17,5 +17,6 @@ data class ArchivedEntity(
     val hour: Int,
     val minute: Int,
     val color: Int,
+    val isLocked: Boolean = false,
     val isCompleted: Boolean = false
 )

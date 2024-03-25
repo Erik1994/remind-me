@@ -12,7 +12,8 @@ val REMINDER_DATA_TO_ARCHIVED_MAPPER = Mapper<ReminderData, ArchivedData> { s ->
             title = title,
             description = description,
             localDate = localDate,
-            isCompleted = true
+            isCompleted = true,
+            isLocked = isLocked
         )
     }
 }

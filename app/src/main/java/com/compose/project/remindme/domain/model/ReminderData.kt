@@ -9,5 +9,6 @@ data class ReminderData(
     override val title: String,
     override val description: String,
     override val localDate: LocalDateTime,
+    override val isLocked: Boolean = false,
     override val isCompleted: Boolean = false
 ) : ItemData

@@ -13,7 +13,8 @@ val DIALOG_ITEM_TO_NOTE_DATA_MAPPER = Mapper<DialogItemData, NoteData> { s ->
             title = itemTitle,
             description = itemDescription,
             localDate = dateTime,
-            color = color
+            color = color,
+            isLocked = isLocked
         )
     }
 }
@@ -24,7 +25,8 @@ val DIALOG_ITEM_TO_REMINDER_DATA_MAPPER = Mapper<DialogItemData, ReminderData> {
             title = itemTitle,
             description = itemDescription,
             localDate = dateTime,
-            color = color
+            color = color,
+            isLocked = isLocked
         )
     }
 }
@@ -36,7 +38,8 @@ val ITEM_DATA_TO_DIALOG_ITEM_MAPPER = Mapper<ItemData, DialogItemData> { s ->
             itemTitle = title,
             itemDescription = description,
             dateTime = localDate,
-            color = color
+            color = color,
+            isLocked = isLocked
         )
     }
 }

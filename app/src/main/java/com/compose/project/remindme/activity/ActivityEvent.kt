@@ -1,6 +1,7 @@
 package com.compose.project.remindme.activity
 
 import com.compose.project.remindme.core.ui.enums.PermissionsEnum
+import com.compose.project.remindme.presentation.biometric.BiometricManager
 import com.compose.project.remindme.presentation.navigation.BottomNavigationItem
 
 sealed class ActivityEvent {
@@ -13,4 +14,6 @@ sealed class ActivityEvent {
         ActivityEvent()
 
     data class ReminderNotificationClickEvent(val route: String) : ActivityEvent()
+
+    data class ShowBiometricResultMessageEvent(val biometricResult: BiometricManager.BiometricResult): ActivityEvent()
 }

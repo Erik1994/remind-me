@@ -18,7 +18,8 @@ val NOTE_ENTITY_TO_DATA_MAPPER = Mapper<NoteEntity, NoteData> { s ->
             title = title,
             description = description,
             localDate = LocalDateTime.of(year, month, dayOfMonth, hour, minute),
-            color = Color(color)
+            color = Color(color),
+            isLocked = isLocked
         )
     }
 }
@@ -31,7 +32,8 @@ val REMINDER_ENTITY_TO_DATA_MAPPER = Mapper<ReminderEntity, ReminderData> { s ->
             description = description,
             localDate = LocalDateTime.of(year, month, dayOfMonth, hour, minute),
             isCompleted = isCompleted,
-            color = Color(color)
+            color = Color(color),
+            isLocked = isLocked
         )
     }
 }
@@ -44,7 +46,8 @@ val ARCHIVED_ENTITY_TO_DATA_MAPPER = Mapper<ArchivedEntity, ArchivedData> { s ->
             description = description,
             localDate = LocalDateTime.of(year, month, dayOfMonth, hour, minute),
             isCompleted = isCompleted,
-            color = Color(color)
+            color = Color(color),
+            isLocked = isLocked
         )
     }
 }

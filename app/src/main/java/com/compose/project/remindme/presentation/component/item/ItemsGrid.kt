@@ -26,7 +26,8 @@ fun ItemsGrid(
     modifier: Modifier = Modifier,
     categorizedItems: List<Category>,
     onItemClick: (ItemData) -> Unit,
-    onDeleteClick: (ItemData) -> Unit
+    onDeleteClick: (ItemData) -> Unit,
+    onLockClick: (ItemData) -> Unit
 ) {
     val dimensions = LocalDimension.current
     val context = LocalContext.current
@@ -54,7 +55,8 @@ fun ItemsGrid(
                 Item(
                     itemData = item,
                     onItemClick = onItemClick,
-                    onDeleteClick = onDeleteClick
+                    onDeleteClick = onDeleteClick,
+                    onLockClick = onLockClick
                 )
             }
         }

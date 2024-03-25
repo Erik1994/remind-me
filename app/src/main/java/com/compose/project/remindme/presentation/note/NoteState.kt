@@ -7,5 +7,6 @@ data class NoteState(
     val categorizedItems: List<Category> = emptyList(),
     val showCreateNoteDialog: Boolean = false,
     val dialogItemData: DialogItemData? = null,
-    val selectedNoteId: Int? = null
+    val selectedNoteId: Int? = null,
+    val lockUnlockItemId: Int? = null
 )

@@ -13,6 +13,7 @@ import com.compose.project.remindme.domain.InsertReminderDataUseCase
 import com.compose.project.remindme.domain.ReminderDataToCategorizedUseCase
 import com.compose.project.remindme.domain.ScheduleReminderUseCase
 import com.compose.project.remindme.domain.model.ItemData
+import com.compose.project.remindme.domain.model.NoteData
 import com.compose.project.remindme.domain.model.ReminderData
 import com.compose.project.remindme.presentation.common.ScreenBaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -63,7 +64,31 @@ class ReminderViewModel @Inject constructor(
                     dialogItemData = null
                 )
             }
+            is ReminderEvent.OnLockClickEvent -> {
+                reminderState = reminderState.copy(
+                    lockUnlockItemId = reminderEvent.id
+                )
+            }
         }
+    }
+
+    override fun toggleItemLockState() {
+        reminderState.categorizedItems.forEach {
+            val item = it.items.find { item -> item.id == reminderState.lockUnlockItemId }
+            item?.let { safeItem ->
+                insertNote((safeItem as ReminderData).copy(
+                    isLocked = !safeItem.isLocked
+                ))
+                resetLockUnlockItemId()
+                return@forEach
+            }
+        }
+    }
+
+    override fun resetLockUnlockItemId() {
+        reminderState = reminderState.copy(
+            lockUnlockItemId = null
+        )
     }
 
     private fun insertNote(reminderData: ReminderData) {

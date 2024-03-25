@@ -8,5 +8,6 @@ data class DialogItemData(
     val color: Color,
     val itemTitle: String,
     val dateTime: LocalDateTime = LocalDateTime.now(),
-    val itemDescription: String = ""
+    val itemDescription: String = "",
+    val isLocked: Boolean = false
 )

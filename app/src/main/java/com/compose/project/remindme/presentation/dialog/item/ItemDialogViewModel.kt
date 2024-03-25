@@ -82,6 +82,12 @@ class ItemDialogViewModel @Inject constructor() : BaseViewModel() {
                     needShowDateTimePicker = false
                 )
             }
+
+            is ItemDialogEvent.LockToggleClick -> {
+                itemDialogState = itemDialogState.copy(
+                    isLockSwitchChecked = !itemDialogState.isLockSwitchChecked
+                )
+            }
         }
     }
 

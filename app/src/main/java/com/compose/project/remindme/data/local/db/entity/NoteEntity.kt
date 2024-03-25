@@ -16,4 +16,5 @@ data class NoteEntity(
     val hour: Int,
     val minute: Int,
     val color: Int,
+    val isLocked: Boolean = false,
 )
