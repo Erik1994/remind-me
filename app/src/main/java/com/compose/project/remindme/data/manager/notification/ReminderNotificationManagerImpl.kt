@@ -30,7 +30,7 @@ class ReminderNotificationManagerImpl(
             context,
             1,
             activityIntent,
-            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_IMMUTABLE
+            PendingIntent.FLAG_IMMUTABLE
         )
         val notification = NotificationCompat.Builder(context, REINDER_CHANNEL_ID)
             .setSmallIcon(R.drawable.reminder_icon)
